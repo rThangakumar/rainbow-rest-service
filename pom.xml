@@ -56,9 +56,9 @@
         <version>1.9.0</version>  
         <configuration>
           <schemaVersion>V2</schemaVersion>
-          <resourceGroup>rest-service-1581613159625-rg</resourceGroup>
-          <appName>rest-service-1581613159625</appName>
-          <pricingTier>P1v2</pricingTier>
+          <resourceGroup>rest-service-rg</resourceGroup>
+          <appName>rest-service</appName>
+          <pricingTier>F1</pricingTier>
           <region>westeurope</region>
           <runtime>
             <os>linux</os>

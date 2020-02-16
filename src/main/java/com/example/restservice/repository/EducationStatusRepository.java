@@ -3,9 +3,9 @@ package com.example.restservice.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.restservice.crud.Grade;
+import com.example.restservice.crud.EducationStatus;
 
 @Repository
-public interface GradeRepository extends JpaRepository<Grade, Long>{
+public interface EducationStatusRepository extends JpaRepository<EducationStatus, Long> {
 
 }
