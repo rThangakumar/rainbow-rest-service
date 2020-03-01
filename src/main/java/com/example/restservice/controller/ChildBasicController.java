@@ -20,6 +20,7 @@ import com.example.restservice.crud.ParentalStatus;
 import com.example.restservice.crud.ReasonForAdmission;
 import com.example.restservice.crud.ReferralSource;
 import com.example.restservice.crud.Religion;
+import com.example.restservice.crud.Staff;
 import com.example.restservice.repository.*;
 
 @RestController
@@ -52,6 +53,9 @@ public class ChildBasicController {
 	
 	@Autowired
 	private ChildStatusRepository childStatusRepository;
+	
+	@Autowired
+	private StaffRepository staffRepository;
 	
 	@GetMapping("/religions")
 	public ResponseEntity<List<Religion>> getAllReligions() {
@@ -99,6 +103,13 @@ public class ChildBasicController {
 	public ResponseEntity<List<ChildStatus>> getAllChildStatuses() {
 		List<ChildStatus> childStatuses = childStatusRepository.findAll();
 		return ResponseEntity.ok().body(childStatuses);
+	}
+	
+	@GetMapping("/home-staff-list")
+	public ResponseEntity<List<Staff>> getAllStaffsInAHome(){
+		List<Staff> staffList = staffRepository.findAll();
+		return ResponseEntity.ok().body(staffList);
+		
 	}
 	
 	@GetMapping("/children")
