@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 @Entity
 @Table(name = "ChildBasic")
 public class Child {
@@ -31,7 +34,7 @@ public class Child {
 
 	@Id
 	@Column(name="ChildNo")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getChildNo() {
 		return childNo;
 	}

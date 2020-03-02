@@ -15,6 +15,8 @@ public class Community {
 	private int communityId;
 	private String community;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="CommunityId")
 	public int getCommunityId() {
 		return communityId;

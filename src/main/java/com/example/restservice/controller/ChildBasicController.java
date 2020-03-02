@@ -3,10 +3,15 @@ package com.example.restservice.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -116,6 +121,11 @@ public class ChildBasicController {
 	public ResponseEntity<Child> getAllChild(){
 		List<Child> child = childRepository.findAll();
 		return ResponseEntity.ok().body(child.get(0));
+	}
+	
+	@PostMapping(path="/child", consumes = "application/json", produces = "application/json")
+	public @Valid Child addChild(@Valid @RequestBody Child child) {
+		return childRepository.save(child);
 	}
 	
 }

@@ -2,6 +2,9 @@ package com.example.restservice.crud;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -11,6 +14,8 @@ public class ReasonForAdmission {
 	private int reasonForAdmissionId;
 	private String reasonForAdmission;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="RFAID")
 	public int getReasonForAdmissionId() {
 		return reasonForAdmissionId;

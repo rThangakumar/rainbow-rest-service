@@ -2,6 +2,9 @@ package com.example.restservice.crud;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -14,7 +17,9 @@ public class Staff {
 	private int staffStatus;
 	private String staffId;
 	
-	@Column=("StaffNo")
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="StaffNo")
 	public int getStaffNo() {
 		return staffNo;
 	}
@@ -22,7 +27,7 @@ public class Staff {
 		this.staffNo = staffNo;
 	}
 	
-	@Column=("FirstName")
+	@Column(name="FirstName")
 	public String getFirstName() {
 		return firstName;
 	}
@@ -30,7 +35,7 @@ public class Staff {
 		this.firstName = firstName;
 	}
 	
-	@Column=("LastName")
+	@Column(name="LastName")
 	public String getLastName() {
 		return lastName;
 	}
@@ -38,7 +43,7 @@ public class Staff {
 		this.lastName = lastName;
 	}
 	
-	@Column=("StaffStatus")
+	@Column(name="StaffStatus")
 	public int getStaffStatus() {
 		return staffStatus;
 	}
@@ -46,7 +51,7 @@ public class Staff {
 		this.staffStatus = staffStatus;
 	}
 	
-	@Column=("StaffID")
+	@Column(name="StaffID")
 	public String getStaffId() {
 		return staffId;
 	}
