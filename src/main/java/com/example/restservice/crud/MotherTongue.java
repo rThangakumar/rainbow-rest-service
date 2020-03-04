@@ -12,15 +12,15 @@ import javax.persistence.Table;
 public class MotherTongue {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int MotherTongueId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer MotherTongueId;
 	private String MotherTongue;
 	
 	@Column(name="MotherTongueId")
-	public int getMotherTongueId() {
+	public Integer getMotherTongueId() {
 		return MotherTongueId;
 	}
-	public void setMotherTongueId(int motherTongueId) {
+	public void setMotherTongueId(Integer motherTongueId) {
 		MotherTongueId = motherTongueId;
 	}
 	

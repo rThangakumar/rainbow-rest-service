@@ -11,16 +11,16 @@ import javax.persistence.Table;
 @Table(name="ReasonForAdmission")
 public class ReasonForAdmission {
 
-	private int reasonForAdmissionId;
+	private Integer reasonForAdmissionId;
 	private String reasonForAdmission;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="RFAID")
-	public int getReasonForAdmissionId() {
+	public Integer getReasonForAdmissionId() {
 		return reasonForAdmissionId;
 	}
-	public void setReasonForAdmissionId(int reasonForAdmissionId) {
+	public void setReasonForAdmissionId(Integer reasonForAdmissionId) {
 		this.reasonForAdmissionId = reasonForAdmissionId;
 	}
 	

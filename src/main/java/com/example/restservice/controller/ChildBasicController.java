@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restservice.crud.Child;
@@ -117,14 +116,25 @@ public class ChildBasicController {
 		
 	}
 	
-	@GetMapping("/children")
-	public ResponseEntity<Child> getAllChild(){
-		List<Child> child = childRepository.findAll();
-		return ResponseEntity.ok().body(child.get(0));
+	@GetMapping("/children/{homeNo}")
+	public ResponseEntity<List<Child>> getChildrenInTheHome(@PathVariable Integer homeNo){
+		List<Child> childrenInTheHome = childRepository.findByRainbowHomeNumber(homeNo);
+		return ResponseEntity.ok().body(childrenInTheHome);
 	}
 	
-	@PostMapping(path="/child", consumes = "application/json", produces = "application/json")
+	@PostMapping(path="/child")
 	public @Valid Child addChild(@Valid @RequestBody Child child) {
+		return childRepository.save(child);
+	}
+	
+	@GetMapping(path="/child/{childNo}")
+	public Optional<Child> getChild(@PathVariable long childNo) {
+		return childRepository.findById(childNo);
+	}
+	
+	@PutMapping(path="/child/{childNo}")
+	public Child updateChild(@PathVariable long childNo, @Valid @RequestBody Child child) {
+		child.setChildNo(childNo);
 		return childRepository.save(child);
 	}
 	

@@ -11,24 +11,24 @@ import javax.persistence.Table;
 @Table(name="ChildStatus")
 public class ChildStatus {
 	
-	private int childStatusId;
-	private int childStatus;
+	private Integer childStatusId;
+	private String childStatus;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ChildStatusID")
-	public int getChildStatusId() {
+	public Integer getChildStatusId() {
 		return childStatusId;
 	}
-	public void setChildStatusId(int childStatusId) {
+	public void setChildStatusId(Integer childStatusId) {
 		this.childStatusId = childStatusId;
 	}
 	
 	@Column(name="ChildStatus")
-	public int getChildStatus() {
+	public String getChildStatus() {
 		return childStatus;
 	}
-	public void setChildStatus(int childStatus) {
+	public void setChildStatus(String childStatus) {
 		this.childStatus = childStatus;
 	}
 	

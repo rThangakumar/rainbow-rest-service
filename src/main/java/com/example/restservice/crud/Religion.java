@@ -12,15 +12,15 @@ import javax.persistence.Table;
 public class Religion {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int religionId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer religionId;
 	private String religion;
 	
 	@Column(name="ReligionId")
-	public int getReligionId() {
+	public Integer getReligionId() {
 		return religionId;
 	}
-	public void setReligionId(int religionId) {
+	public void setReligionId(Integer religionId) {
 		this.religionId = religionId;
 	}
 	

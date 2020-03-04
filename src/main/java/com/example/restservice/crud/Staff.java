@@ -11,19 +11,19 @@ import javax.persistence.Table;
 @Table(name="Staff")
 public class Staff {
 	
-	private int staffNo;
+	private Integer staffNo;
 	private String firstName;
 	private String lastName;
-	private int staffStatus;
+	private Integer staffStatus;
 	private String staffId;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="StaffNo")
-	public int getStaffNo() {
+	public Integer getStaffNo() {
 		return staffNo;
 	}
-	public void setStaffNo(int staffNo) {
+	public void setStaffNo(Integer staffNo) {
 		this.staffNo = staffNo;
 	}
 	
@@ -44,10 +44,10 @@ public class Staff {
 	}
 	
 	@Column(name="StaffStatus")
-	public int getStaffStatus() {
+	public Integer getStaffStatus() {
 		return staffStatus;
 	}
-	public void setStaffStatus(int staffStatus) {
+	public void setStaffStatus(Integer staffStatus) {
 		this.staffStatus = staffStatus;
 	}
 	

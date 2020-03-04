@@ -8,20 +8,34 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "ChildBasic")
 public class Child {
 
-	private long childNo;
+	private Long childNo;
 	private String childStringId;
+	private Integer rainbowHomeNumber;
+	
+	@Size(min=2, max=30)
+	@NotEmpty(message = "First name must not be empty")
 	private String firstName;
 	private String lastName;
-	private int gender;
-	private Date dob;
+	private Integer gender;
+	private Date dateOfBirth;
+	private Integer religion;
+	private Integer community;
+	private Integer motherTongue;
+	private Integer parentalStatus;
+	private String reasonForAdmission;
+	private Integer educationStatus;
+	private Date admissionDate;
+	private Integer admittedBy;
+	private String referredBy;
+	private String referredSource;
+	private Integer childStatus;
 
 	public Child() {
 
@@ -35,11 +49,11 @@ public class Child {
 	@Id
 	@Column(name="ChildNo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public long getChildNo() {
+	public Long getChildNo() {
 		return childNo;
 	}
 
-	public void setChildNo(long childNo) {
+	public void setChildNo(Long childNo) {
 		this.childNo = childNo;
 	}
 	
@@ -71,20 +85,128 @@ public class Child {
 	}
 	
 	@Column(name = "Gender")
-	public int getGender() {
+	public Integer getGender() {
 		return gender;
 	}
 
-	public void setGender(int gender) {
+	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
 	
 	@Column(name="CDOB")
-	public Date getDob() {
-		return dob;
+	public Date getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setDob(Date dob) {
-		this.dob = dob;
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	
+	@Column(name="Religion")
+	public Integer getReligion() {
+		return religion;
+	}
+
+	public void setReligion(Integer religion) {
+		this.religion = religion;
+	}
+	
+	@Column(name="Community")
+	public Integer getCommunity() {
+		return community;
+	}
+
+	public void setCommunity(Integer community) {
+		this.community = community;
+	}
+	
+	@Column(name="MotherTongue")
+	public Integer getMotherTongue() {
+		return motherTongue;
+	}
+
+	public void setMotherTongue(Integer motherTongue) {
+		this.motherTongue = motherTongue;
+	}
+	
+	@Column(name="ParentalStatus")
+	public Integer getParentalStatus() {
+		return parentalStatus;
+	}
+
+	public void setParentalStatus(Integer parentalStatus) {
+		this.parentalStatus = parentalStatus;
+	}
+	
+	@Column(name="RFA")
+	public String getReasonForAdmission() {
+		return reasonForAdmission;
+	}
+
+	public void setReasonForAdmission(String reasonForAdmission) {
+		this.reasonForAdmission = reasonForAdmission;
+	}
+	
+	@Column(name="EducationStatus")
+	public Integer getEducationStatus() {
+		return educationStatus;
+	}
+
+	public void setEducationStatus(Integer educationStatus) {
+		this.educationStatus = educationStatus;
+	}
+	
+	@Column(name="AdmissionDate")
+	public Date getAdmissionDate() {
+		return admissionDate;
+	}
+
+	public void setAdmissionDate(Date admissionDate) {
+		this.admissionDate = admissionDate;
+	}
+	
+	@Column(name="AdmittedBy")
+	public Integer getAdmittedBy() {
+		return admittedBy;
+	}
+
+	public void setAdmittedBy(Integer admittedBy) {
+		this.admittedBy = admittedBy;
+	}
+	
+	@Column(name="ReferredBy")
+	public String getReferredBy() {
+		return referredBy;
+	}
+
+	public void setReferredBy(String referredBy) {
+		this.referredBy = referredBy;
+	}
+	
+	@Column(name="ReferredSrc")
+	public String getReferredSource() {
+		return referredSource;
+	}
+
+	public void setReferredSource(String referredSource) {
+		this.referredSource = referredSource;
+	}
+	
+	@Column(name="ChildStatus")
+	public Integer getChildStatus() {
+		return childStatus;
+	}
+
+	public void setChildStatus(Integer childStatus) {
+		this.childStatus = childStatus;
+	}
+	
+	@Column(name="RHNo")
+	public Integer getRainbowHomeNumber() {
+		return rainbowHomeNumber;
+	}
+
+	public void setRainbowHomeNumber(Integer rainbowHomeNumber) {
+		this.rainbowHomeNumber = rainbowHomeNumber;
 	}
 }

@@ -11,16 +11,16 @@ import javax.persistence.Table;
 @Table(name="ReferralSource")
 public class ReferralSource {
 	
-	private int referralSourceId;
+	private Integer referralSourceId;
 	private String referralSource;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="RefSrcNo")
-	public int getReferralSourceId() {
+	public Integer getReferralSourceId() {
 		return referralSourceId;
 	}
-	public void setReferralSourceId(int referralSourceId) {
+	public void setReferralSourceId(Integer referralSourceId) {
 		this.referralSourceId = referralSourceId;
 	}
 	

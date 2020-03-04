@@ -11,16 +11,16 @@ import javax.persistence.Table;
 @Table(name="EducationStatus")
 public class EducationStatus {
 	
-	private int educationStatusId;
+	private Integer educationStatusId;
 	private String educationStatus;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="EducationStatusId")
-	public int getEducationStatusId() {
+	public Integer getEducationStatusId() {
 		return educationStatusId;
 	}
-	public void setEducationStatusId(int educationStatusId) {
+	public void setEducationStatusId(Integer educationStatusId) {
 		this.educationStatusId = educationStatusId;
 	}
 	

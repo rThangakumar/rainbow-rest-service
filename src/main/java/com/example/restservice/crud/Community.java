@@ -10,18 +10,16 @@ import javax.persistence.Table;
 @Table(name = "Community")
 public class Community {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int communityId;
+	private Integer communityId;
 	private String community;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="CommunityId")
-	public int getCommunityId() {
+	public Integer getCommunityId() {
 		return communityId;
 	}
-	public void setCommunityId(int communityId) {
+	public void setCommunityId(Integer communityId) {
 		this.communityId = communityId;
 	}
 	

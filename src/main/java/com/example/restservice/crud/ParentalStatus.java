@@ -11,16 +11,16 @@ import javax.persistence.Table;
 @Table(name="ParentalStatus")
 public class ParentalStatus {
 
-	private int parentalStatusId;
+	private Integer parentalStatusId;
 	private String parentalStatus;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ParentalStatusId")
-	public int getParentalStatusId() {
+	public Integer getParentalStatusId() {
 		return parentalStatusId;
 	}
-	public void setParentalStatusId(int parentalStatusId) {
+	public void setParentalStatusId(Integer parentalStatusId) {
 		this.parentalStatusId = parentalStatusId;
 	}
 	

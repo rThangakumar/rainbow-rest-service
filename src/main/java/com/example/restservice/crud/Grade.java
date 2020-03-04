@@ -11,18 +11,18 @@ import javax.persistence.Table;
 @Table(name = "GRADE")
 public class Grade {
 	
-	private long gradeId;
+	private Long gradeId;
 	private String grade;
 	private String gradeCode;
 	
 	@Id
 	@Column(name="GRADE_ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public long getGradeId() {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Long getGradeId() {
 		return gradeId;
 	}
 	
-	public void setGradeId(long gradeId) {
+	public void setGradeId(Long gradeId) {
 		this.gradeId = gradeId;
 	}
 	
