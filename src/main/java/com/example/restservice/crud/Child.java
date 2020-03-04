@@ -22,19 +22,48 @@ public class Child {
 	@Size(min=2, max=30)
 	@NotEmpty(message = "First name must not be empty")
 	private String firstName;
+	
+	@Size(min=2, max=30)
+	@NotEmpty(message = "Last name must not be empty")
 	private String lastName;
+	
+	@NotEmpty(message = "Gender must not be empty")
 	private Integer gender;
+	
+	@NotEmpty(message = "Date of Birth must not be empty")
 	private Date dateOfBirth;
+	
+	@NotEmpty(message = "Religion must not be empty")
 	private Integer religion;
+	
+	@NotEmpty(message = "Community must not be empty")
 	private Integer community;
+	
+	@NotEmpty(message = "Mother Tongue must not be empty")
 	private Integer motherTongue;
+	
+	@NotEmpty(message = "Parental Status must not be empty")
 	private Integer parentalStatus;
+	
+	@NotEmpty(message = "Reason For Admission must not be empty")
 	private String reasonForAdmission;
+	
+	@NotEmpty(message = "Education Status must not be empty")
 	private Integer educationStatus;
+	
+	@NotEmpty(message = "Admission Date must not be empty")
 	private Date admissionDate;
+	
+	@NotEmpty(message = "Admitted By must not be empty")
 	private Integer admittedBy;
+	
+	@NotEmpty(message = "Referred By must not be empty")
 	private String referredBy;
+	
+	@NotEmpty(message = "Referred Source must not be empty")
 	private String referredSource;
+	
+	@NotEmpty(message = "Child Status must not be empty")
 	private Integer childStatus;
 
 	public Child() {
