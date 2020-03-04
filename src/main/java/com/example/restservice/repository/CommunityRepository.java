@@ -1,9 +1,17 @@
 package com.example.restservice.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.example.restservice.crud.ChildStatus;
 import com.example.restservice.crud.Community;
 
+@Repository
+@Cacheable("Community")
 public interface CommunityRepository  extends JpaRepository<Community, Long>{
 
+	List<Community> findAll();
 }

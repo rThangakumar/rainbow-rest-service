@@ -128,12 +128,12 @@ public class ChildBasicController {
 	}
 	
 	@GetMapping(path="/child/{childNo}")
-	public Optional<Child> getChild(@PathVariable long childNo) {
+	public Optional<Child> getChild(@PathVariable Long childNo) {
 		return childRepository.findById(childNo);
 	}
 	
 	@PutMapping(path="/child/{childNo}")
-	public Child updateChild(@PathVariable long childNo, @Valid @RequestBody Child child) {
+	public Child updateChild(@PathVariable Long childNo, @Valid @RequestBody Child child) {
 		child.setChildNo(childNo);
 		return childRepository.save(child);
 	}
