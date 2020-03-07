@@ -30,7 +30,6 @@ public class Child {
 	@NotEmpty(message = "Gender must not be empty")
 	private Integer gender;
 	
-	@NotEmpty(message = "Date of Birth must not be empty")
 	private Date dateOfBirth;
 	
 	@NotEmpty(message = "Religion must not be empty")

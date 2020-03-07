@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.example.restservice.crud.Religion;
 
 @Repository
-@Cacheable("Religion")
 public interface ReligionRepository extends JpaRepository<Religion, Long>{
 	
 	List<Religion> findAll();

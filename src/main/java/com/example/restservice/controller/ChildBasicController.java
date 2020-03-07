@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,6 +64,7 @@ public class ChildBasicController {
 	private StaffRepository staffRepository;
 	
 	@GetMapping("/religions")
+	@Cacheable("Religion")
 	public ResponseEntity<List<Religion>> getAllReligions() {
 		List<Religion> religions = religionRepository.findAll();
 		return ResponseEntity.ok().body(religions);
@@ -128,11 +131,13 @@ public class ChildBasicController {
 	}
 	
 	@GetMapping(path="/child/{childNo}")
+	@Cacheable("Child")
 	public Optional<Child> getChild(@PathVariable Long childNo) {
 		return childRepository.findById(childNo);
 	}
 	
 	@PutMapping(path="/child/{childNo}")
+	@CachePut("Child")
 	public Child updateChild(@PathVariable Long childNo, @Valid @RequestBody Child child) {
 		child.setChildNo(childNo);
 		return childRepository.save(child);
