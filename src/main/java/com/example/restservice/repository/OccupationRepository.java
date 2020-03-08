@@ -11,7 +11,5 @@ import com.example.restservice.crud.Occupation;
 @Repository
 @Cacheable("Occupation")
 public interface OccupationRepository extends JpaRepository<Occupation, Long>{
-	
 	List<Occupation> findAll();
-
 }

@@ -2,6 +2,8 @@ package com.example.restservice.crud;
 
 public class ChildGeneralInfo {
 	
+	private Integer childNo;
+	
 	private String identificationMark1;
 	
 	private String identificationMark2;
@@ -11,6 +13,14 @@ public class ChildGeneralInfo {
 	private Integer occupation;
 	
 	private Integer differentlyAbledGroup;
+	
+	public Integer getChildNo() {
+		return childNo;
+	}
+
+	public void setChildNo(Integer childNo) {
+		this.childNo = childNo;
+	}
 
 	public String getIdentificationMark1() {
 		return identificationMark1;

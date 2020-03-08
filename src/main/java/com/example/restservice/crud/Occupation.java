@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ChildStatus")
+@Table(name="Occupation")
 public class Occupation {
 	
 	private Integer occupationNumber;
