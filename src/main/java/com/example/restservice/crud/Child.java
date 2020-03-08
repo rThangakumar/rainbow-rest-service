@@ -64,7 +64,17 @@ public class Child {
 	
 	@NotEmpty(message = "Child Status must not be empty")
 	private Integer childStatus;
-
+	
+	private String identificationMark1;
+	
+	private String identificationMark2;
+	
+	private Integer stayReason;
+	
+	private Integer occupation;
+	
+	private Integer differntlyAbledGroup;
+	
 	public Child() {
 
 	}
@@ -237,4 +247,50 @@ public class Child {
 	public void setRainbowHomeNumber(Integer rainbowHomeNumber) {
 		this.rainbowHomeNumber = rainbowHomeNumber;
 	}
+	
+	@Column(name="IdentificationMark1")
+	public String getIdentificationMark1() {
+		return identificationMark1;
+	}
+
+	public void setIdentificationMark1(String identificationMark1) {
+		this.identificationMark1 = identificationMark1;
+	}
+	
+	@Column(name="IdentificationMark2")
+	public String getIdentificationMark2() {
+		return identificationMark2;
+	}
+
+	public void setIdentificationMark2(String identificationMark2) {
+		this.identificationMark2 = identificationMark2;
+	}
+	
+	@Column(name="StayReason")
+	public Integer getStayReason() {
+		return stayReason;
+	}
+
+	public void setStayReason(Integer stayReason) {
+		this.stayReason = stayReason;
+	}
+	
+	@Column(name="Occupation")
+	public Integer getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(Integer occupation) {
+		this.occupation = occupation;
+	}
+	
+	@Column(name="DifferentlyAbledGroup")
+	public Integer getDifferntlyAbledGroup() {
+		return differntlyAbledGroup;
+	}
+
+	public void setDifferntlyAbledGroup(Integer differntlyAbledGroup) {
+		this.differntlyAbledGroup = differntlyAbledGroup;
+	}
+	
 }
