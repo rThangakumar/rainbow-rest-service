@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,10 +64,12 @@ public class ChildCommunicationController {
 	}
 	
 	@GetMapping("/child-communication/{addressNo}")
+	@Cacheable("ChildCommunication")
 	public Optional<ChildAddress> getChildCommunication(@PathVariable Integer addressNo) {
 		return childCommunicationRepository.findByAddressNo(addressNo);
 	}
 	@PutMapping("/child-communication")
+	@CachePut("ChildCommunication")
 	public @Valid ChildAddress updateChildCommunication(@Valid ChildAddress childAddress) {
 		return childCommunicationRepository.save(childAddress);
 	}

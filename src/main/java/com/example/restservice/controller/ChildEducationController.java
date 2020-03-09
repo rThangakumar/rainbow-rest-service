@@ -37,12 +37,12 @@ public class ChildEducationController {
 	private ChildEductionRepository childEductionRepository;
 	
 		
-	@GetMapping("/getStudyingClass")
+	@GetMapping("/studying-class")
 	public ResponseEntity<List<ChildClass>> getStudyingClass() {
 		List<com.example.restservice.crud.ChildClass> childClass = childClassRepository.findAll();
 		return ResponseEntity.ok().body(childClass);
 	}
-	@GetMapping("/getSchoolType")
+	@GetMapping("/school-type")
 	public ResponseEntity<List<SchoolType>> getSchoolType() {
 		List<SchoolType> schoolType = schoolTypeRepository.findAll();
 		return ResponseEntity.ok().body(schoolType);
