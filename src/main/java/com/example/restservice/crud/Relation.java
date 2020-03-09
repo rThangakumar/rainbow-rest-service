@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class Occupation {
+public class Relation {
 	
 	@Id
 	@GeneratedValue
-	public int occupationNo;
-	public String occupation;
+	public int relationNo;
+	public String relation;
 
 }
