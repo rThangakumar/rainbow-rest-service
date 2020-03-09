@@ -19,53 +19,46 @@ public class Child {
 	private String childStringId;
 	private Integer rainbowHomeNumber;
 	
-	@Size(min=2, max=30)
-	@NotEmpty(message = "First name must not be empty")
 	private String firstName;
 	
-	@Size(min=2, max=30)
-	@NotEmpty(message = "Last name must not be empty")
 	private String lastName;
 	
-	@NotEmpty(message = "Gender must not be empty")
 	private Integer gender;
 	
-	@NotEmpty(message = "Date of Birth must not be empty")
 	private Date dateOfBirth;
 	
-	@NotEmpty(message = "Religion must not be empty")
 	private Integer religion;
 	
-	@NotEmpty(message = "Community must not be empty")
 	private Integer community;
 	
-	@NotEmpty(message = "Mother Tongue must not be empty")
 	private Integer motherTongue;
 	
-	@NotEmpty(message = "Parental Status must not be empty")
 	private Integer parentalStatus;
 	
-	@NotEmpty(message = "Reason For Admission must not be empty")
 	private String reasonForAdmission;
 	
-	@NotEmpty(message = "Education Status must not be empty")
 	private Integer educationStatus;
 	
-	@NotEmpty(message = "Admission Date must not be empty")
 	private Date admissionDate;
 	
-	@NotEmpty(message = "Admitted By must not be empty")
 	private Integer admittedBy;
 	
-	@NotEmpty(message = "Referred By must not be empty")
 	private String referredBy;
 	
-	@NotEmpty(message = "Referred Source must not be empty")
 	private String referredSource;
 	
-	@NotEmpty(message = "Child Status must not be empty")
 	private Integer childStatus;
-
+	
+	private String identificationMark1;
+	
+	private String identificationMark2;
+	
+	private Integer stayReason;
+	
+	private Integer occupation;
+	
+	private Integer differentlyAbledGroup;
+	
 	public Child() {
 
 	}
@@ -238,4 +231,50 @@ public class Child {
 	public void setRainbowHomeNumber(Integer rainbowHomeNumber) {
 		this.rainbowHomeNumber = rainbowHomeNumber;
 	}
+	
+	@Column(name="IdentificationMark1")
+	public String getIdentificationMark1() {
+		return identificationMark1;
+	}
+
+	public void setIdentificationMark1(String identificationMark1) {
+		this.identificationMark1 = identificationMark1;
+	}
+	
+	@Column(name="IdentificationMark2")
+	public String getIdentificationMark2() {
+		return identificationMark2;
+	}
+
+	public void setIdentificationMark2(String identificationMark2) {
+		this.identificationMark2 = identificationMark2;
+	}
+	
+	@Column(name="StayReason")
+	public Integer getStayReason() {
+		return stayReason;
+	}
+
+	public void setStayReason(Integer stayReason) {
+		this.stayReason = stayReason;
+	}
+	
+	@Column(name="Occupation")
+	public Integer getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(Integer occupation) {
+		this.occupation = occupation;
+	}
+	
+	@Column(name="DifferentlyAbledGroup")
+	public Integer getDifferentlyAbledGroup() {
+		return differentlyAbledGroup;
+	}
+
+	public void setDifferentlyAbledGroup(Integer differentlyAbledGroup) {
+		this.differentlyAbledGroup = differentlyAbledGroup;
+	}
+	
 }

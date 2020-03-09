@@ -6,12 +6,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.restservice.crud.ChildStatus;
-import com.example.restservice.crud.Community;
+import com.example.restservice.crud.StayReason;
 
 @Repository
-@Cacheable("Community")
-public interface CommunityRepository extends JpaRepository<Community, Long>{
-
-	List<Community> findAll();
+@Cacheable("StayReason")
+public interface StayReasonRepository extends JpaRepository<StayReason,Long>{
+	List<StayReason> findAll();
 }

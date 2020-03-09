@@ -5,13 +5,12 @@ import java.util.List;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.example.restservice.crud.ChildStatus;
-import com.example.restservice.crud.Community;
+import com.example.restservice.crud.Identification;
 
 @Repository
-@Cacheable("Community")
-public interface CommunityRepository extends JpaRepository<Community, Long>{
+@Cacheable("Identification")
+public interface IdentificationRepository extends JpaRepository<Identification, Long>{
+	
+	List<Identification> findAll();
 
-	List<Community> findAll();
 }

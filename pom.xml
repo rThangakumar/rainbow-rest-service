@@ -83,8 +83,8 @@
 					<schemaVersion>V2</schemaVersion>
 					<resourceGroup>rest-service-rg</resourceGroup>
 					<appName>rest-service</appName>
-					<pricingTier>F1</pricingTier>
-					<region>westeurope</region>
+					<pricingTier>B1</pricingTier>
+					<region>southeastasia</region>
 					<runtime>
 						<os>linux</os>
 						<javaVersion>jre8</javaVersion>
