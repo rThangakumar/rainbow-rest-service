@@ -22,7 +22,7 @@ import lombok.Setter;
 
 @Entity
 @Builder(toBuilder = true)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor
 @Setter(value = AccessLevel.PACKAGE)
 @Getter
 public class ChildFamily {

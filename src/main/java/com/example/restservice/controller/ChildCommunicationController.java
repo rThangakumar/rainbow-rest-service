@@ -79,5 +79,4 @@ public class ChildCommunicationController {
 		childCommunicationRepository.delete(childAddress);
 	}
 	
-	
 }

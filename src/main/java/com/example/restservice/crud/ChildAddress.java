@@ -21,8 +21,9 @@ import lombok.Setter;
 
 
 @Entity
+@Data
 @Builder(toBuilder = true)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor
 @Setter(value = AccessLevel.PACKAGE)
 @Getter
 public class ChildAddress {
