@@ -18,8 +18,11 @@ public class District {
 	@GeneratedValue
 	public int districtID;
 	public String district;
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "stateID")
-	public State state;
+	/*
+	 * @ManyToOne(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn(name = "stateID")
+	 */
+	public Integer stateID;
 
 }
