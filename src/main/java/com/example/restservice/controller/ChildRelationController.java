@@ -67,7 +67,4 @@ public class ChildRelationController {
 	public ChildFamily upadteChildFamily(@Valid @RequestBody ChildFamily childFamily) {
 		return childFamilyRepository.save(childFamily);
 	}
-
-	
-	
 }

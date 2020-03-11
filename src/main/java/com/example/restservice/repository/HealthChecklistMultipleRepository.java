@@ -9,7 +9,5 @@ import com.example.restservice.crud.HealthChecklistMultiple;
 
 @Repository
 public interface HealthChecklistMultipleRepository extends JpaRepository<HealthChecklistMultiple,Long> {
-
 	Optional<HealthChecklistMultiple> findByChildNo(Integer childNo);
-
 }

@@ -2,21 +2,33 @@ package com.example.restservice.crud;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-@NoArgsConstructor
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@Setter(value = AccessLevel.PACKAGE)
+@Getter
 public class ChildHealth {
 	
+	public ChildHealth() {
+		super();
+	}
+	
 	@Id
-	@GeneratedValue
-	private Integer healthNo;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long healthNo;
 	private Integer childNo;
 	private Date healthDate;
 	private String height;
@@ -25,5 +37,9 @@ public class ChildHealth {
 	private String comments;
 	private Integer status;
 	private Integer healthStatus;
-
+	public void setHealthNo(Long healthNo) {
+		this.healthNo = healthNo;
+		
+	}
+	
 }
