@@ -2,11 +2,15 @@ package com.example.restservice.crud;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -48,6 +52,12 @@ public class Child {
 	private String referredSource;
 	
 	private Integer childStatus;
+	
+	/*
+	 * @ManyToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "childStatusID") private ChildStatus childStatus;
+	 */
 	
 	private String identificationMark1;
 	

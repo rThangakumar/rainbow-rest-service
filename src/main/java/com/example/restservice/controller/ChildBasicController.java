@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildStatus;
+import com.example.restservice.crud.CommitteeSuggestion;
 import com.example.restservice.crud.Community;
 import com.example.restservice.crud.EducationStatus;
 import com.example.restservice.crud.MotherTongue;
 import com.example.restservice.crud.ParentalStatus;
+import com.example.restservice.crud.ProfileDescription;
 import com.example.restservice.crud.ReasonForAdmission;
 import com.example.restservice.crud.ReferralSource;
 import com.example.restservice.crud.Religion;
@@ -62,6 +64,12 @@ public class ChildBasicController {
 	
 	@Autowired
 	private StaffRepository staffRepository;
+	
+	@Autowired
+	private ProfileDescriptionRepository profileDescriptionRepository;
+	
+	@Autowired
+	private CommitteeSuggestionRepository committeeSuggestionRepository;
 	
 	@GetMapping("/religions")
 	@Cacheable("Religion")
@@ -141,6 +149,58 @@ public class ChildBasicController {
 	public Child updateChild(@PathVariable Long childNo, @Valid @RequestBody Child child) {
 		child.setChildNo(childNo);
 		return childRepository.save(child);
+	}
+	
+	/* Child Profile Description */
+	
+	@PostMapping(path="/child-profile-description")
+	public @Valid ProfileDescription addProfileDescription(@Valid @RequestBody ProfileDescription profileDescription){
+		return profileDescriptionRepository.save(profileDescription);
+	}
+	
+	@GetMapping(path="/child-profile-description/{profileDescriptionNo}")
+	@Cacheable("ChildProfile")
+	public Optional<ProfileDescription> getProfileDescription(@PathVariable Long profileDescriptionNo) {
+		return profileDescriptionRepository.findById(profileDescriptionNo);
+	}
+	
+	@GetMapping(path="/child-profile-all-description/{childNo}")
+	@Cacheable("ChildProfile")
+	public Optional<List<ProfileDescription>> getAllProfileDescription(@PathVariable Long childNo) {
+		return profileDescriptionRepository.findAllByChildNo(childNo);
+	}
+	
+	@PutMapping(path="/child-profile-description/{profileDescriptionNo}")
+	@CachePut("ChildProfile")
+	public ProfileDescription updateProfileDescription(@PathVariable Long profileDescriptionNo, @Valid @RequestBody ProfileDescription profileDescription) {
+		profileDescription.setProfileDescriptionNo(profileDescriptionNo);
+		return profileDescriptionRepository.save(profileDescription);
+	}
+	
+	/* Child Admission Committee Suggestion */
+	
+	@PostMapping(path="/admission-committee-suggestion")
+	public @Valid CommitteeSuggestion addAdmissionCommitteeSuggestion(@Valid @RequestBody CommitteeSuggestion committeeSuggestion){
+		return committeeSuggestionRepository.save(committeeSuggestion);
+	}
+	
+	@GetMapping(path="/admission-committee-suggestion/{committeeSuggestionId}")
+	@Cacheable("CommitteeSuggestion")
+	public Optional<CommitteeSuggestion> getCommitteeSuggestion(@PathVariable Long committeeSuggestionId) {
+		return committeeSuggestionRepository.findById(committeeSuggestionId);
+	}
+	
+	@GetMapping(path="/admission-all-committee-suggestions/{childNo}")
+	@CachePut("CommitteeSuggestion")
+	public Optional<List<CommitteeSuggestion>> getAllCommitteeSuggestions(@PathVariable Long childNo) {
+		return committeeSuggestionRepository.findAllByChildNo(childNo);
+	}
+	
+	@PutMapping(path="/admission-committee-suggestion/{committeeSuggestionNo}")
+	@Cacheable("CommitteeSuggestion")
+	public @Valid CommitteeSuggestion updateCommitteeSuggestion(@PathVariable Long committeeSuggestionNo, @Valid @RequestBody CommitteeSuggestion committeeSuggestion) {
+		committeeSuggestion.setCommitteeSuggestionNo(committeeSuggestionNo);
+		return committeeSuggestionRepository.save(committeeSuggestion);
 	}
 	
 }
