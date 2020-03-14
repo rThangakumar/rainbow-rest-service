@@ -19,12 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restservice.crud.ChildHealth;
 import com.example.restservice.crud.GeneralHealth;
-import com.example.restservice.crud.HealthChecklistMultiple;
-import com.example.restservice.crud.HealthChecklistSingle;
+import com.example.restservice.crud.HealthChecklist;
 import com.example.restservice.repository.ChildHealthRepository;
 import com.example.restservice.repository.GeneralHealthRepository;
-import com.example.restservice.repository.HealthChecklistMultipleRepository;
-import com.example.restservice.repository.HealthChecklistSingleRepository;
+import com.example.restservice.repository.HealthChecklistRepository;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -37,10 +35,7 @@ public class ChildHealthController {
 	private ChildHealthRepository childHealthRepository;
 	
 	@Autowired
-	private HealthChecklistSingleRepository healthChecklistSingleRepository;
-	
-	@Autowired
-	private HealthChecklistMultipleRepository healthChecklistMultipleRepository;
+	private HealthChecklistRepository healthChecklistRepository;
 	
 	@GetMapping("/general-health")
 	public ResponseEntity<List<GeneralHealth>> getCountry() {
@@ -72,40 +67,22 @@ public class ChildHealthController {
 		return childHealthRepository.save(childHealth);
 	}
 	
-	@GetMapping("/health-checkup-single/{childNo}")
-	@Cacheable("HealthCheckupSingle")
-	public Optional<HealthChecklistSingle> getHealthCheckupSingle(@PathVariable Integer childNo) {
-		return healthChecklistSingleRepository.findByChildNo(childNo);
+	@GetMapping("/health-checklist/{childNo}")
+	@Cacheable("HealthChecklist")
+	public Optional<HealthChecklist> getHealthCheckup(@PathVariable Integer childNo) {
+		return healthChecklistRepository.findByChildNo(childNo);
 	}
 	
-	@PostMapping(path="/health-checkup-single")
-	public @Valid HealthChecklistSingle addHeathCheckupSingle(@Valid @RequestBody HealthChecklistSingle healthChecklistSingle) {
-		return healthChecklistSingleRepository.save(healthChecklistSingle);
+	@PostMapping(path="/health-checklist")
+	public @Valid HealthChecklist addHeathCheckupMultiple(@Valid @RequestBody HealthChecklist healthChecklist) {
+		return healthChecklistRepository.save(healthChecklist);
 	}
 	
-	@PutMapping(path="/health-checkup-single/{healthChecklistSingleNo}")
-	@CachePut("HealthCheckupSingle")
-	public @Valid HealthChecklistSingle updateHealthChecklistSingle(@PathVariable Long healthChecklistSingleNo, @Valid @RequestBody HealthChecklistSingle healthChecklistSingle) {
-		healthChecklistSingle.setHealthChecklistSingleNo(healthChecklistSingleNo);
-		return healthChecklistSingleRepository.save(healthChecklistSingle);
-	}
-	
-	@GetMapping("/health-checkup-multiple/{childNo}")
-	@Cacheable("HealthCheckupMultiple")
-	public Optional<HealthChecklistMultiple> getHealthCheckupMultiple(@PathVariable Integer childNo) {
-		return healthChecklistMultipleRepository.findByChildNo(childNo);
-	}
-	
-	@PostMapping(path="/health-checkup-multiple")
-	public @Valid HealthChecklistMultiple addHeathCheckupMultiple(@Valid @RequestBody HealthChecklistMultiple healthChecklistMultiple) {
-		return healthChecklistMultipleRepository.save(healthChecklistMultiple);
-	}
-	
-	@PutMapping(path="/health-checkup-multiple/{healthChecklistMultipleNo}")
-	@CachePut("HealthCheckupMultiple")
-	public @Valid HealthChecklistMultiple updateHealthChecklistMultiple(@PathVariable Long healthChecklistMultipleNo, @Valid @RequestBody HealthChecklistMultiple healthChecklistMultiple) {
-		healthChecklistMultiple.setHealthChecklistMultipleNo(healthChecklistMultipleNo);
-		return healthChecklistMultipleRepository.save(healthChecklistMultiple);
+	@PutMapping(path="/health-checklist/{healthChecklistNo}")
+	@CachePut("HealthChecklist")
+	public @Valid HealthChecklist updateHealthChecklistMultiple(@PathVariable Long healthChecklistNo, @Valid @RequestBody HealthChecklist healthChecklist) {
+		healthChecklist.setHealthChecklistNo(healthChecklistNo);
+		return healthChecklistRepository.save(healthChecklist);
 	}
 
 }

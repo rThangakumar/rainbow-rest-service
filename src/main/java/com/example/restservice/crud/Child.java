@@ -1,5 +1,7 @@
 package com.example.restservice.crud;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -51,13 +54,7 @@ public class Child {
 	
 	private String referredSource;
 	
-	private Integer childStatus;
-	
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinColumn(name = "childStatusID") private ChildStatus childStatus;
-	 */
+	private ChildStatus childStatus;
 	
 	private String identificationMark1;
 	
@@ -68,6 +65,9 @@ public class Child {
 	private Integer occupation;
 	
 	private Integer differentlyAbledGroup;
+	
+	@OneToMany
+	private Collection<ChildMap> childMaps = new ArrayList<ChildMap>();
 	
 	public Child() {
 
@@ -224,12 +224,13 @@ public class Child {
 		this.referredSource = referredSource;
 	}
 	
-	@Column(name="ChildStatus")
-	public Integer getChildStatus() {
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "childStatus")
+	public ChildStatus getChildStatus() {
 		return childStatus;
 	}
 
-	public void setChildStatus(Integer childStatus) {
+	public void setChildStatus(ChildStatus childStatus) {
 		this.childStatus = childStatus;
 	}
 	
