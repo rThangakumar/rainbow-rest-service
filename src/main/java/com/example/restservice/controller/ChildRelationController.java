@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,6 +55,7 @@ public class ChildRelationController {
 	}
 	
 	@GetMapping(path="/family/{familyNo}", consumes = "application/json", produces = "application/json")
+	@Cacheable("ChildFamily")
 	public Optional<ChildFamily> getChildFamilyByFamilyNo(@PathVariable Integer familyNo) {
 		return childFamilyRepository.findChildFamilyByFamilyNo(familyNo);
 	}
@@ -64,6 +67,7 @@ public class ChildRelationController {
 	
 	
 	@PutMapping(path="/child-family")
+	@CacheEvict (value= "ChildFamily", allEntries=true)
 	public ChildFamily upadteChildFamily(@Valid @RequestBody ChildFamily childFamily) {
 		return childFamilyRepository.save(childFamily);
 	}

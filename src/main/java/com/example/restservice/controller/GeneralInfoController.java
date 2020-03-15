@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
@@ -97,7 +98,7 @@ public class GeneralInfoController {
 	}
 	
 	@PutMapping("/child-general-info/{childNo}")
-	@CachePut("ChildGeneralInfo")
+	@CacheEvict (value= "ChildGeneralInfo", allEntries=true)
 	public ResponseEntity<Child> updateChildGeneralInfo(@PathVariable Integer childNo, @Valid @RequestBody Child childInfo){
 		ChildGeneralInfo childGeneralInfo = new ChildGeneralInfo();
 		childGeneralInfo.setChildNo(childNo);

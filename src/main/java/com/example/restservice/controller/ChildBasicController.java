@@ -6,7 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restservice.crud.Child;
+import com.example.restservice.crud.ChildEnhanced;
 import com.example.restservice.crud.ChildStatus;
 import com.example.restservice.crud.CommitteeSuggestion;
 import com.example.restservice.crud.Community;
@@ -37,6 +38,9 @@ public class ChildBasicController {
 
 	@Autowired
 	private ChildRepository childRepository;
+	
+	@Autowired
+	private ChildEnhancedRepository childEnhancedRepository;
 	
 	@Autowired
 	private ReligionRepository religionRepository;
@@ -128,9 +132,9 @@ public class ChildBasicController {
 	}
 	
 	@GetMapping("/children/{homeNo}")
-	public ResponseEntity<List<Child>> getChildrenInTheHome(@PathVariable Integer homeNo){
-		List<Child> childrenInTheHome = childRepository.findByRainbowHomeNumber(homeNo);
-		return ResponseEntity.ok().body(childrenInTheHome);
+	public ResponseEntity<List<ChildEnhanced>> getChildrenInTheHome(@PathVariable Integer homeNo){
+		List<ChildEnhanced> childrenInTheHome = childEnhancedRepository.findByRainbowHomeNumber(homeNo);
+		return ResponseEntity.ok(childrenInTheHome);
 	}
 	
 	@PostMapping(path="/child")
@@ -145,7 +149,7 @@ public class ChildBasicController {
 	}
 	
 	@PutMapping(path="/child/{childNo}")
-	@CachePut("Child")
+	@CacheEvict (value= "Child", allEntries=true)
 	public Child updateChild(@PathVariable Long childNo, @Valid @RequestBody Child child) {
 		child.setChildNo(childNo);
 		return childRepository.save(child);
@@ -171,7 +175,7 @@ public class ChildBasicController {
 	}
 	
 	@PutMapping(path="/child-profile-description/{profileDescriptionNo}")
-	@CachePut("ChildProfile")
+	@CacheEvict (value= "ChildProfile", allEntries=true)
 	public ProfileDescription updateProfileDescription(@PathVariable Long profileDescriptionNo, @Valid @RequestBody ProfileDescription profileDescription) {
 		profileDescription.setProfileDescriptionNo(profileDescriptionNo);
 		return profileDescriptionRepository.save(profileDescription);
@@ -191,7 +195,7 @@ public class ChildBasicController {
 	}
 	
 	@GetMapping(path="/admission-all-committee-suggestions/{childNo}")
-	@CachePut("CommitteeSuggestion")
+	@CacheEvict (value= "CommitteeSuggestion", allEntries=true)
 	public Optional<List<CommitteeSuggestion>> getAllCommitteeSuggestions(@PathVariable Long childNo) {
 		return committeeSuggestionRepository.findAllByChildNo(childNo);
 	}

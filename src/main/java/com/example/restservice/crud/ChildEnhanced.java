@@ -1,17 +1,25 @@
 package com.example.restservice.crud;
 
-
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "ChildBasic")
-public class Child {
+public class ChildEnhanced {
 
 	private Long childNo;
 	private String childStringId;
@@ -45,7 +53,9 @@ public class Child {
 	
 	private String referredSource;
 	
-	private Integer childStatus;
+	private ChildStatus childStatus;
+	
+	private List<ChildMap> childMaps = new ArrayList<>();
 	
 	private String identificationMark1;
 	
@@ -57,11 +67,11 @@ public class Child {
 	
 	private Integer differentlyAbledGroup;
 	
-	public Child() {
+	public ChildEnhanced() {
 
 	}
 
-	public Child(String firstName, String lastName) {
+	public ChildEnhanced(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
@@ -212,13 +222,27 @@ public class Child {
 		this.referredSource = referredSource;
 	}
 	
-	@Column(name="ChildStatus")
-	public Integer getChildStatus() {
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "childStatus")
+	public ChildStatus getChildStatus() {
 		return childStatus;
 	}
 
-	public void setChildStatus(Integer childStatus) {
+	public void setChildStatus(ChildStatus childStatus) {
 		this.childStatus = childStatus;
+	}
+	
+	@OneToMany
+    @JoinColumn(
+        name = "childNo",
+        referencedColumnName = "childNo"
+    )
+	public List<ChildMap> getChildMaps() {
+		return childMaps;
+	}
+
+	public void setChildMaps(List<ChildMap> childMaps) {
+		this.childMaps = childMaps;
 	}
 
 	@Column(name="RHNo")

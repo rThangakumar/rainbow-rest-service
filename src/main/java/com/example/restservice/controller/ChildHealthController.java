@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restservice.crud.ChildHealth;
+import com.example.restservice.crud.ChildMedicalTreatment;
 import com.example.restservice.crud.GeneralHealth;
 import com.example.restservice.crud.HealthChecklist;
+import com.example.restservice.crud.HealthGrowthForm;
 import com.example.restservice.repository.ChildHealthRepository;
+import com.example.restservice.repository.ChildMedicalTreatmentRepository;
 import com.example.restservice.repository.GeneralHealthRepository;
 import com.example.restservice.repository.HealthChecklistRepository;
+import com.example.restservice.repository.HealthGrowthFormRepository;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -36,6 +41,12 @@ public class ChildHealthController {
 	
 	@Autowired
 	private HealthChecklistRepository healthChecklistRepository;
+	
+	@Autowired
+	private ChildMedicalTreatmentRepository childMedicalTreatmentRepository;
+	
+	@Autowired
+	private HealthGrowthFormRepository healthGrowthFormRepository;
 	
 	@GetMapping("/general-health")
 	public ResponseEntity<List<GeneralHealth>> getCountry() {
@@ -56,7 +67,7 @@ public class ChildHealthController {
 	}
 	
 	@PutMapping(path="/child-health/{healthNo}")
-	@CachePut("ChildHealth")
+	@CacheEvict (value= "ChildHealth", allEntries=true)
 	public @Valid ChildHealth updateChildHealth(@PathVariable Long healthNo, @Valid @RequestBody ChildHealth childHealth) {
 		childHealth.setHealthNo(healthNo);
 		return childHealthRepository.save(childHealth);
@@ -67,22 +78,82 @@ public class ChildHealthController {
 		return childHealthRepository.save(childHealth);
 	}
 	
-	@GetMapping("/health-checklist/{childNo}")
-	@Cacheable("HealthChecklist")
-	public Optional<HealthChecklist> getHealthCheckup(@PathVariable Integer childNo) {
+	/* Child Health Checklist */
+	
+	@GetMapping("/health-checklists-for-child/{childNo}")
+	@Cacheable("HealthChecklists")
+	public List<HealthChecklist> getHealthCheckupForChild(@PathVariable Integer childNo) {
 		return healthChecklistRepository.findByChildNo(childNo);
 	}
 	
+	@GetMapping("/health-checklist/{healthChecklistNo}")
+	@Cacheable("HealthChecklist")
+	public Optional<HealthChecklist> getHealthCheckup(@PathVariable Integer healthChecklistNo) {
+		return healthChecklistRepository.findByHealthChecklistNo(healthChecklistNo);
+	}
+	
 	@PostMapping(path="/health-checklist")
-	public @Valid HealthChecklist addHeathCheckupMultiple(@Valid @RequestBody HealthChecklist healthChecklist) {
+	public @Valid HealthChecklist addHeathCheckup(@Valid @RequestBody HealthChecklist healthChecklist) {
 		return healthChecklistRepository.save(healthChecklist);
 	}
 	
 	@PutMapping(path="/health-checklist/{healthChecklistNo}")
-	@CachePut("HealthChecklist")
-	public @Valid HealthChecklist updateHealthChecklistMultiple(@PathVariable Long healthChecklistNo, @Valid @RequestBody HealthChecklist healthChecklist) {
+	@CacheEvict (value= "HealthChecklist", allEntries=true)
+	public @Valid HealthChecklist updateHealthChecklist(@PathVariable Integer healthChecklistNo, @Valid @RequestBody HealthChecklist healthChecklist) {
 		healthChecklist.setHealthChecklistNo(healthChecklistNo);
 		return healthChecklistRepository.save(healthChecklist);
 	}
+	
+	/* Child Medical Treatment */
 
+	@GetMapping("/medical-treatments-for-child/{childNo}")
+	@Cacheable("MedicalTreatments")
+	public List<ChildMedicalTreatment> getMedicalTreatmentForChild(@PathVariable Long childNo) {
+		return childMedicalTreatmentRepository.findByChildNo(childNo);
+	}
+	
+	@GetMapping("/medical-treatment/{childMedicalTreatmentNo}")
+	@Cacheable("MedicalTreatment")
+	public Optional<ChildMedicalTreatment> getMedicalTreatment(@PathVariable Integer childMedicalTreatmentNo) {
+		return childMedicalTreatmentRepository.findByChildMedicalTreatmentNo(childMedicalTreatmentNo);
+	}
+	
+	@PostMapping(path="/medical-treatment")
+	public @Valid ChildMedicalTreatment addChildMedicalTreatment(@Valid @RequestBody ChildMedicalTreatment childMedicalTreatment) {
+		return childMedicalTreatmentRepository.save(childMedicalTreatment);
+	}
+	
+	@PutMapping(path="/medical-treatment/{childMedicalTreatmentNo}")
+	@CacheEvict (value= "MedicalTreatment", allEntries=true)
+	public @Valid ChildMedicalTreatment updateChildMedicalTreatment(@PathVariable Integer childMedicalTreatmentNo, @Valid @RequestBody ChildMedicalTreatment childMedicalTreatment) {
+		childMedicalTreatment.setChildMedicalTreatmentNo(childMedicalTreatmentNo);
+		return childMedicalTreatmentRepository.save(childMedicalTreatment);
+	}
+	
+	/* Child Health Growth Form */
+	
+	@GetMapping("/health-growth-form-for-child/{childNo}")
+	@Cacheable("healthgrowthforms")
+	public List<HealthGrowthForm> getGrowthFormForChild(@PathVariable Long childNo) {
+		return healthGrowthFormRepository.findByChildNo(childNo);
+	}
+	
+	@GetMapping("/health-growth-form/{healthGrowthFormNo}")
+	@Cacheable("healthgrowthform")
+	public Optional<HealthGrowthForm> getGrowthForm(@PathVariable Integer healthGrowthFormNo) {
+		return healthGrowthFormRepository.findByHealthGrowthFormNo(healthGrowthFormNo);
+	}
+	
+	@PostMapping(path="/health-growth-form")
+	public @Valid HealthGrowthForm addGrowthForm(@Valid @RequestBody HealthGrowthForm healthGrowthForm) {
+		return healthGrowthFormRepository.save(healthGrowthForm);
+	}
+	
+	@PutMapping(path="/health-growth-form/{healthGrowthFormNo}")
+	@CacheEvict (value= "healthgrowthform", allEntries=true)
+	public @Valid HealthGrowthForm updateGrowthForm(@PathVariable Integer healthGrowthFormNo, @Valid @RequestBody HealthGrowthForm healthGrowthForm) {
+		healthGrowthForm.setHealthGrowthFormNo(healthGrowthFormNo);
+		return healthGrowthFormRepository.save(healthGrowthForm);
+	}
+	
 }

@@ -20,8 +20,8 @@ import lombok.Setter;
 @Table(name="HealthChecklist")
 public class HealthChecklist {
 	
-	private Long healthChecklistNo;
-	private Integer childNo;
+	private Integer healthChecklistNo;
+	private Long childNo;
 	private Boolean hivTestDone;
 	private Boolean tbTestDone;
 	private Boolean dewormingDone;
@@ -33,10 +33,10 @@ public class HealthChecklist {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="HealthChecklistNo")
-	public Long getHealthChecklistNo() {
+	public Integer getHealthChecklistNo() {
 		return healthChecklistNo;
 	}
-	public void setHealthChecklistNo(Long healthChecklistNo) {
+	public void setHealthChecklistNo(Integer healthChecklistNo) {
 		this.healthChecklistNo = healthChecklistNo;
 	}
 

@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,15 +56,16 @@ public class ChildEducationController {
 	}
 	
 	@GetMapping(path="/child-education/{childNo}", consumes = "application/json", produces = "application/json")
+	@Cacheable("ChildEducation")
 	public Optional<List<ChildEducation>> getChildEducation(@PathVariable Integer childNo) {
 		return childEductionRepository.findByChildNo(childNo);
 	}
 	
 	
 	@PutMapping(path="/child-education")
+	@CacheEvict (value= "ChildEducation", allEntries=true)
 	public ChildEducation upadteChildEducation(@Valid @RequestBody ChildEducation childEducation) {
 		return childEductionRepository.save(childEducation);
 	}
-	
 		
 }

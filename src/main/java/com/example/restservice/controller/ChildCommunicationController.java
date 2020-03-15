@@ -6,7 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,7 +69,7 @@ public class ChildCommunicationController {
 		return childCommunicationRepository.findByAddressNo(addressNo);
 	}
 	@PutMapping("/child-communication")
-	@CachePut("ChildCommunication")
+	@CacheEvict (value= "ChildCommunication", allEntries=true)
 	public @Valid ChildAddress updateChildCommunication(@Valid ChildAddress childAddress) {
 		return childCommunicationRepository.save(childAddress);
 	}
