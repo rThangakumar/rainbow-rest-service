@@ -39,6 +39,10 @@ public class ChildClass {
 	public void setStudyingclass(String studyingclass) {
 		this.studyingclass = studyingclass;
 	}
+	
+	public String getStudyingclass() {
+		return this.studyingclass;
+	}
 
 	@Column(name="status")
 	public int getStatus() {
