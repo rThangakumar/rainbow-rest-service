@@ -23,7 +23,9 @@ public class HealthChecklist {
 	private Integer healthChecklistNo;
 	private Long childNo;
 	private Boolean hivTestDone;
+	private Boolean hivTestResult;
 	private Boolean tbTestDone;
+	private Boolean tbTestResult;
 	private Boolean dewormingDone;
 	private Date dewormingDate;
 	private String campCheckupNotes;

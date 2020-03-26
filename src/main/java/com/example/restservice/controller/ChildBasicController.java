@@ -125,7 +125,7 @@ public class ChildBasicController {
 	}
 	
 	@GetMapping("/home-staff-list")
-	public ResponseEntity<List<Staff>> getAllStaffsInAHome(){
+	public ResponseEntity<List<Staff>> getAllStaffs(){
 		List<Staff> staffList = staffRepository.findAll();
 		return ResponseEntity.ok().body(staffList);
 		

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.example.restservice.crud.MarkType;
 
 @Repository
-@Cacheable("Identification")
+@Cacheable("MarkType")
 public interface MarkTypeRepository extends JpaRepository<MarkType,Long>{
 	
 	List<MarkType> findAll();

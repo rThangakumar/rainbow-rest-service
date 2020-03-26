@@ -26,7 +26,7 @@ import com.example.restservice.repository.ChildEductionRepository;
 import com.example.restservice.repository.SchoolTypeRepository;
 
 @RestController
-@RequestMapping("/api/v1/education")
+@RequestMapping("/api/v1")
 public class ChildEducationController {
 
 	@Autowired
@@ -40,6 +40,7 @@ public class ChildEducationController {
 	
 		
 	@GetMapping("/studying-class")
+	@Cacheable("StudyingClass")
 	public ResponseEntity<List<ChildClass>> getStudyingClass() {
 		List<com.example.restservice.crud.ChildClass> childClass = childClassRepository.findAll();
 		return ResponseEntity.ok().body(childClass);

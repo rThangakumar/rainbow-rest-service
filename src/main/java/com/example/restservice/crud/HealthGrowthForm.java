@@ -28,9 +28,9 @@ public class HealthGrowthForm {
 	private Long childNo;
 	private Date assessmentDate;
 	private Integer height;
+	private Integer weight;
 	private String generalHealth;
 	private String comments;
-	private String status;
 	private String healthStatus;
 	
 	public void setHealthGrowthFormNo(Integer healthGrowthFormNo) {
