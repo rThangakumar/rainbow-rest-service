@@ -18,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildHealth;
 import com.example.restservice.crud.ChildMedicalTreatment;
 import com.example.restservice.crud.GeneralHealth;
 import com.example.restservice.crud.HealthChecklist;
 import com.example.restservice.crud.HealthGrowthForm;
+import com.example.restservice.dto.ChildHealthDTO;
 import com.example.restservice.repository.ChildHealthRepository;
 import com.example.restservice.repository.ChildMedicalTreatmentRepository;
+import com.example.restservice.repository.ChildRepository;
 import com.example.restservice.repository.GeneralHealthRepository;
 import com.example.restservice.repository.HealthChecklistRepository;
 import com.example.restservice.repository.HealthGrowthFormRepository;
@@ -48,6 +51,9 @@ public class ChildHealthController {
 	@Autowired
 	private HealthGrowthFormRepository healthGrowthFormRepository;
 	
+	@Autowired
+	private ChildRepository childRepository;
+	
 	@GetMapping("/general-health")
 	public ResponseEntity<List<GeneralHealth>> getCountry() {
 		List<GeneralHealth> generalHealthList = generalHealthRepository.findAll();
@@ -56,20 +62,32 @@ public class ChildHealthController {
 	
 	@GetMapping("/child-health/{healthNo}")
 	@Cacheable("ChildHealth")
-	public Optional<ChildHealth> getChildHealth(@PathVariable Long healthNo) {
+	public Optional<ChildHealth> getChildHealth(@PathVariable Integer healthNo) {
 		return childHealthRepository.findChildHealthByHealthNo(healthNo);
 	}
 	
 	@GetMapping("/child-health-all-records/{childNo}")
 	@Cacheable("ChildHealthAllRecords")
-	public Optional<ChildHealth> getAllHealthForAChild(@PathVariable Long childNo) {
-		return childHealthRepository.findChildHealthByChildNo(childNo);
+	public List<ChildHealth> getAllHealthForAChild(@PathVariable Long childNo) {
+		return childHealthRepository.findAllChildHealthByChildNo(childNo);
 	}
 	
 	@PutMapping(path="/child-health/{healthNo}")
 	@CacheEvict (value= "ChildHealth", allEntries=true)
-	public @Valid ChildHealth updateChildHealth(@PathVariable Long healthNo, @Valid @RequestBody ChildHealth childHealth) {
+	public @Valid ChildHealth updateChildHealth(@PathVariable Integer healthNo, @Valid @RequestBody ChildHealthDTO childHealthDTO) {
+		ChildHealth childHealth = new ChildHealth();
 		childHealth.setHealthNo(healthNo);
+		childHealth.setChildNo(childHealthDTO.getChildNo());
+		childHealth.setHeight(childHealthDTO.getHeight());
+		childHealth.setWeight(childHealthDTO.getWeight());
+		childHealth.setGeneralHealth(childHealthDTO.getGeneralHealth());
+		childHealth.setComments(childHealthDTO.getComments());
+		childHealth.setHealthStatus(childHealthDTO.getHealthStatus());
+		
+		if (null != childHealthDTO.getBloodGroup()) {
+		  childRepository.saveChildBloodGroup(childHealthDTO.getBloodGroup(), childHealthDTO.getChildNo()); 
+		}
+		
 		return childHealthRepository.save(childHealth);
 	}
 	

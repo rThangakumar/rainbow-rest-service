@@ -30,4 +30,8 @@ public interface ChildRepository extends JpaRepository<Child, Long> {
 	@Modifying
 	@Query("update Child child set child.childStatus = ?1  WHERE child.childNo = ?2")	
 	Integer saveChildStatus(Integer childStatus, Long childNo);
+	
+	@Modifying
+	@Query("update Child child set child.childStatus = ?1  WHERE child.childNo = ?2")	
+	Integer saveChildBloodGroup(Integer bloodGroup, Long childNo);
 }

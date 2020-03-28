@@ -1,5 +1,6 @@
 package com.example.restservice.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,8 +13,8 @@ import com.example.restservice.crud.ChildHealth;
 @Repository
 public interface ChildHealthRepository extends JpaRepository<ChildHealth,Long> {
 	
-	Optional<ChildHealth> findChildHealthByHealthNo(Long healthNo);
+	Optional<ChildHealth> findChildHealthByHealthNo(Integer healthNo);
 	
-	Optional<ChildHealth> findChildHealthByChildNo(Long childNo);
+	List<ChildHealth> findAllChildHealthByChildNo(Long childNo);
 
 }

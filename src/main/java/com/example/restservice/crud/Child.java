@@ -57,6 +57,16 @@ public class Child {
 	
 	private Integer differentlyAbledGroup;
 	
+	private String duration;
+	
+	private String organisationName;
+	
+	private String cWCRefNo;
+	
+	private Integer previousClassStudied;
+	
+	private Integer bloodGroup;
+	
 	public Child() {
 
 	}
@@ -273,6 +283,51 @@ public class Child {
 
 	public void setDifferentlyAbledGroup(Integer differentlyAbledGroup) {
 		this.differentlyAbledGroup = differentlyAbledGroup;
+	}
+	
+	@Column(name="Duration")
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+	
+	@Column(name="OrganisationName")
+	public String getOrganisationName() {
+		return organisationName;
+	}
+
+	public void setOrganisationName(String organisationName) {
+		this.organisationName = organisationName;
+	}
+	
+	@Column(name="CWCRefNo")
+	public String getcWCRefNo() {
+		return cWCRefNo;
+	}
+
+	public void setcWCRefNo(String cWCRefNo) {
+		this.cWCRefNo = cWCRefNo;
+	}
+	
+	@Column(name="PreviousClassStudied")
+	public Integer getPreviousClassStudied() {
+		return previousClassStudied;
+	}
+
+	public void setPreviousClassStudied(Integer previousClassStudied) {
+		this.previousClassStudied = previousClassStudied;
+	}
+	
+	@Column(name="BloodGroup")
+	public Integer getBloodGroup() {
+		return bloodGroup;
+	}
+
+	public void setBloodGroup(Integer bloodGroup) {
+		this.bloodGroup = bloodGroup;
 	}
 	
 }
