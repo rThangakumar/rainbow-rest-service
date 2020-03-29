@@ -28,7 +28,7 @@ public class ChildFollowupController {
 	private ChildFollowupRepository childFollowupRepository;
 	
 	@GetMapping("/child-followup-all/{ChildNo}")
-	@Cacheable("Childfollowup")
+	@Cacheable("Childfollowupall")
 	public ResponseEntity<List<ChildFollowup>> getChildfollowups(@PathVariable Long ChildNo) {
 		List<ChildFollowup> childFollowups = childFollowupRepository.findAllByChildNo(ChildNo);
 		return ResponseEntity.ok().body(childFollowups);
