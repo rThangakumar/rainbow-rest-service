@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import com.example.restservice.crud.ChildHealth.ChildHealthBuilder;
 
@@ -28,7 +29,9 @@ public class UserInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userNo;
+	@NotNull
 	private String userName;
+	@NotNull
 	private String password;
 	private Integer orgId;
 	private Integer orgLevelNo;
