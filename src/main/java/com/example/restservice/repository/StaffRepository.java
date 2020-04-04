@@ -13,7 +13,7 @@ import com.example.restservice.crud.Staff;
 public interface StaffRepository extends JpaRepository<Staff,Long> {
 	
 	List<Staff> findAll();
-	
-	//List<Staff> findByRainbowHomeNumber(Integer homeNo);
+
+	List<Staff> findByOrgID(Integer orgId);
 
 }

@@ -124,6 +124,13 @@ public class ChildBasicController {
 		return ResponseEntity.ok().body(childStatuses);
 	}
 	
+	@GetMapping("/home-staff-list/{orgId}")
+	public ResponseEntity<List<Staff>> getHomeStaffs(@PathVariable Integer orgId){
+		List<Staff> staffList = staffRepository.findByOrgID(orgId);
+		return ResponseEntity.ok().body(staffList);
+		
+	}
+	
 	@GetMapping("/home-staff-list")
 	public ResponseEntity<List<Staff>> getAllStaffs(){
 		List<Staff> staffList = staffRepository.findAll();

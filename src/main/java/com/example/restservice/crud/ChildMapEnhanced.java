@@ -5,11 +5,10 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -22,28 +21,24 @@ import lombok.Setter;
 @Entity
 @Builder(toBuilder = true)
 @AllArgsConstructor
-@Setter
+@Setter(value = AccessLevel.PACKAGE)
 @Getter
-public class ChildMap implements Serializable{
+@Table(name = "ChildMap")
+public class ChildMapEnhanced implements Serializable{
 	
 	private static final long serialVersionUID = -3782354641730928180L;
 	
-	public ChildMap() {
+	public ChildMapEnhanced() {
 		super();
 	}
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer csmid;
+	@NaturalId
 	private Long childNo;
-	private Integer childStatusID;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "childStatusID")
+	private ChildStatus childStatusID;
 	private Date childStatusDate;
-	private Integer leavingReasonId;
-	private String reason;
-	private Integer childLeftPlaceId;
-	private Integer actionTakenId;
-	private String childStayPlace;
-	private Integer followedBy;
-	private Integer approvedBy;
-	
+
 }

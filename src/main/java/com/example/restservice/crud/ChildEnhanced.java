@@ -55,7 +55,7 @@ public class ChildEnhanced {
 	
 	private ChildStatus childStatus;
 	
-	private List<ChildMap> childMaps = new ArrayList<>();
+	private List<ChildMapEnhanced> childMaps = new ArrayList<>();
 	
 	private String identificationMark1;
 	
@@ -247,11 +247,11 @@ public class ChildEnhanced {
         name = "childNo",
         referencedColumnName = "childNo"
     )
-	public List<ChildMap> getChildMaps() {
+	public List<ChildMapEnhanced> getChildMaps() {
 		return childMaps;
 	}
 
-	public void setChildMaps(List<ChildMap> childMaps) {
+	public void setChildMaps(List<ChildMapEnhanced> childMaps) {
 		this.childMaps = childMaps;
 	}
 
