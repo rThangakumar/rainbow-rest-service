@@ -57,6 +57,10 @@ public class Child {
 	
 	private Integer differentlyAbledGroup;
 	
+	private Integer previousClassStudied;
+	
+	private String 	dropoutReason;
+	
 	public Child() {
 
 	}
@@ -273,6 +277,24 @@ public class Child {
 
 	public void setDifferentlyAbledGroup(Integer differentlyAbledGroup) {
 		this.differentlyAbledGroup = differentlyAbledGroup;
+	}
+
+	@Column(name="PreviousClassStudied")
+	public Integer getPreviousClassStudied() {
+		return previousClassStudied;
+	}
+
+	public void setPreviousClassStudied(Integer previousClassStudied) {
+		this.previousClassStudied = previousClassStudied;
+	}
+
+	@Column(name="DropoutReason")
+	public String getDropoutReason() {
+		return dropoutReason;
+	}
+
+	public void setDropoutReason(String dropoutReason) {
+		this.dropoutReason = dropoutReason;
 	}
 	
 }

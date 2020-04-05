@@ -16,5 +16,12 @@ public class Occupation {
 	@GeneratedValue
 	public int occupationNo;
 	public String occupation;
+	public String getOccupation() {
+		return occupation;
+	}
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
 
+	
 }

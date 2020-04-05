@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.restservice.NotificationService;
 import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildEnhanced;
 import com.example.restservice.crud.ChildStatus;
@@ -74,6 +75,9 @@ public class ChildBasicController {
 	
 	@Autowired
 	private CommitteeSuggestionRepository committeeSuggestionRepository;
+	
+	@Autowired
+	private NotificationService notificationService;
 	
 	@GetMapping("/religions")
 	@Cacheable("Religion")
@@ -139,7 +143,10 @@ public class ChildBasicController {
 	
 	@PostMapping(path="/child")
 	public @Valid Child addChild(@Valid @RequestBody Child child) {
-		return childRepository.save(child);
+		Child savedChildDetails = childRepository.save(child);
+		notificationService.sendAddChildNotification(savedChildDetails);
+		return savedChildDetails;
+
 	}
 	
 	@GetMapping(path="/child/{childNo}")

@@ -24,7 +24,7 @@ import lombok.Setter;
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
-@Setter(value = AccessLevel.PACKAGE)
+@Setter
 @Getter
 public class ChildEducation {
 	
@@ -44,6 +44,9 @@ public class ChildEducation {
 	public Integer studyingclass;
 	public Integer medium;
 	
+	public transient Integer previousClassStudied;
+	public transient String dropoutReason;
+	
 	
 	public String address;
 	public Integer created_by;
@@ -56,6 +59,35 @@ public class ChildEducation {
 	public Date date_to;
 	public Integer classMapID;
     public Integer	previous_Edu_Details;
+    
+    public String  stayType;
+    public String  bridgeCourse;
+    public String  classDetails;
+    public String  sponsorship;
+    public String  spnsorshipFor;
+    
+    
+    
+	public Integer getChildNo() {
+		return childNo;
+	}
+	public void setChildNo(Integer childNo) {
+		this.childNo = childNo;
+	}
+	public Integer getPreviousClassStudied() {
+		return previousClassStudied;
+	}
+	public void setPreviousClassStudied(Integer previousClassStudied) {
+		this.previousClassStudied = previousClassStudied;
+	}
+	public String getDropoutReason() {
+		return dropoutReason;
+	}
+	public void setDropoutReason(String dropoutReason) {
+		this.dropoutReason = dropoutReason;
+	}
 	
+	
+    
 
 }

@@ -16,5 +16,12 @@ public class Relation {
 	@GeneratedValue
 	public int relationNo;
 	public String relation;
+	public String getRelation() {
+		return relation;
+	}
+	public void setRelation(String relation) {
+		this.relation = relation;
+	}
+	
 
 }
