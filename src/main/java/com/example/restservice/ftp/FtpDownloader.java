@@ -1,6 +1,5 @@
 package com.example.restservice.ftp;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -25,11 +24,16 @@ public class FtpDownloader {
             throw new Exception("Exception in connecting to FTP Server");
         }
         ftp.login(user, pwd);
+        reply = ftp.getReplyCode();
+        if (!FTPReply.isPositiveCompletion(reply)) {
+            ftp.disconnect();
+            throw new Exception("Exception in login");
+        }
         ftp.setFileType(FTP.BINARY_FILE_TYPE);
         ftp.enterLocalPassiveMode();
     }
 
-    public InputStream downloadFile(String remoteFilePath, String localFilePath) {
+    public InputStream downloadFile(String remoteFilePath) {
     	InputStream inputStream = null;
         try {
         	inputStream = this.ftp.retrieveFileStream(remoteFilePath);
@@ -51,15 +55,4 @@ public class FtpDownloader {
         }
     }
 
-    /*public static void main(String[] args) {
-        try {
-        	FtpDownloader ftpDownloader =
-                new FtpDownloader("ftp_server.journaldev.com", "ftp_user@journaldev.com", "ftpPassword");
-            ftpDownloader.downloadFile("sitemap.xml", "/Users/pankaj/tmp/sitemap.xml");
-            System.out.println("FTP File downloaded successfully");
-            ftpDownloader.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 }

@@ -1,4 +1,5 @@
 package com.example.restservice.ftp;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -29,16 +30,12 @@ public class FTPUploader {
 		ftp.setFileType(FTP.BINARY_FILE_TYPE);
 		ftp.enterLocalPassiveMode();
 	}
-	public void uploadFile(String localFileFullName, String fileName, String hostDir)
+	
+	public void uploadFile(MultipartFile file, String fileName, String hostDir)
 			throws Exception {
-		try(InputStream input = new FileInputStream(new File(localFileFullName))){
+		try(InputStream input = new BufferedInputStream(file.getInputStream())){
 		this.ftp.storeFile(hostDir + fileName, input);
 		}
-	}
-	
-	public void uploadFile(MultipartFile file, String fileName, String hostDir) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void disconnect(){
@@ -51,18 +48,5 @@ public class FTPUploader {
 			}
 		}
 	}
-	/*
-	 * public static void main(String[] args) throws Exception {
-	 * System.out.println("Start"); FTPUploader ftpUploader = new
-	 * FTPUploader("ftp.journaldev.com", "ftpUser", "ftpPassword"); //FTP server
-	 * path is relative. So if FTP account HOME directory is
-	 * "/home/pankaj/public_html/" and you need to upload // files to
-	 * "/home/pankaj/public_html/wp-content/uploads/image2/", you should pass
-	 * directory parameter as "/wp-content/uploads/image2/"
-	 * ftpUploader.uploadFile("D:\\Pankaj\\images\\MyImage.png", "image.png",
-	 * "/wp-content/uploads/image2/"); ftpUploader.disconnect();
-	 * System.out.println("Done"); }
-	 */
-	
 
 }
