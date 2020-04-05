@@ -36,6 +36,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		<dependency>
+	    	<groupId>commons-net</groupId>
+	    	<artifactId>commons-net</artifactId>
+    		<version>3.6</version>
+		</dependency>
+		<dependency>
+    		<groupId>commons-io</groupId>
+    		<artifactId>commons-io</artifactId>
+   			<version>2.6</version>
+		</dependency>
 <!-- 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -94,8 +104,8 @@
 					<schemaVersion>V2</schemaVersion>
 					<resourceGroup>rest-service-rg</resourceGroup>
 					<appName>rest-service</appName>
-					<pricingTier>B1</pricingTier>
-					<region>southeastasia</region>
+					<pricingTier>F1</pricingTier>
+					<region>westeurope</region>
 					<runtime>
 						<os>linux</os>
 						<javaVersion>jre8</javaVersion>

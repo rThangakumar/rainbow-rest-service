@@ -16,6 +16,7 @@ public class Staff {
 	private String lastName;
 	private Integer staffStatus;
 	private String staffId;
+	private Integer orgID;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,5 +60,12 @@ public class Staff {
 		this.staffId = staffId;
 	}
 	
-
+	@Column(name="OrgID")
+	public Integer getOrgID() {
+		return orgID;
+	}
+	public void setOrgID(Integer orgID) {
+		this.orgID = orgID;
+	}
+	
 }

@@ -2,39 +2,40 @@ package com.example.restservice.crud;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Builder(toBuilder = true)
+@AllArgsConstructor
 @Setter(value = AccessLevel.PACKAGE)
 @Getter
-public class HealthGrowthForm {
+public class ChildFollowup {
 	
-	public HealthGrowthForm() {
+	public ChildFollowup() {
 		super();
 	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer healthGrowthFormNo;
+	private Integer childFollowupNo;
 	private Long childNo;
-	private Date assessmentDate;
-	private Integer height;
-	private Integer weight;
-	private String generalHealth;
+	private Integer staffNo;
+	private Date followupDate;
 	private String comments;
-	private String healthStatus;
-	
-	public void setHealthGrowthFormNo(Integer healthGrowthFormNo) {
-		healthGrowthFormNo = healthGrowthFormNo;
+	public Integer getChildFollowupNo() {
+		return childFollowupNo;
+	}
+	public void setChildFollowupNo(Integer childFollowupNo) {
+		this.childFollowupNo = childFollowupNo;
 	}
 	
 }
