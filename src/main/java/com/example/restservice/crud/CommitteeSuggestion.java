@@ -25,6 +25,5 @@ public class CommitteeSuggestion {
 	public void setCommitteeSuggestionNo(Long committeeSuggestionNo) {
 		this.committeeSuggestionNo = committeeSuggestionNo;
 	}
-	
 
 }

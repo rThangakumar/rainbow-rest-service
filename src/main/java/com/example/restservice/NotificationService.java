@@ -95,7 +95,7 @@ public class NotificationService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		SMSDetails smsDetails = new SMSDetails();
+		SMSDetails smsDetails = new SMSDetails(null, null, null);
 		smsDetails.setMessage(message);
 		smsDetails.setSender("RFIROR");
 		smsDetails.setMobileNo(mobildNos+", 9000988856");

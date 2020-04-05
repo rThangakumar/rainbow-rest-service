@@ -1,4 +1,4 @@
-package com.example.restservice.ftp;
+package com.example.restservice.utils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,11 +12,11 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import org.springframework.web.multipart.MultipartFile;
 
-public class FTPUploader {
+public class FtpUploader {
 	
 	FTPClient ftp = null;
 	
-	public FTPUploader(String host, String user, String pwd) throws Exception{
+	public FtpUploader(String host, String user, String pwd) throws Exception{
 		ftp = new FTPClient();
 		ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
 		int reply;

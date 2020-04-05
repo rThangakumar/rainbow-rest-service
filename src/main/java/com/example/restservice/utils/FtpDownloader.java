@@ -1,4 +1,4 @@
-package com.example.restservice.ftp;
+package com.example.restservice.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -57,7 +57,6 @@ public class Child {
 	
 	private Integer differentlyAbledGroup;
 	
-
 	private Integer previousClassStudied;
 	
 	private String 	dropoutReason;
@@ -67,8 +66,6 @@ public class Child {
 	private String organisationName;
 	
 	private String cWCRefNo;
-	
-	private Integer previousClassStudied;
 	
 	private Integer bloodGroup;
 
@@ -289,15 +286,6 @@ public class Child {
 
 	public void setDifferentlyAbledGroup(Integer differentlyAbledGroup) {
 		this.differentlyAbledGroup = differentlyAbledGroup;
-	}
-
-	@Column(name="PreviousClassStudied")
-	public Integer getPreviousClassStudied() {
-		return previousClassStudied;
-	}
-
-	public void setPreviousClassStudied(Integer previousClassStudied) {
-		this.previousClassStudied = previousClassStudied;
 	}
 
 	@Column(name="DropoutReason")

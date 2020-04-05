@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,12 +16,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.restservice.NotificationService;
+import com.example.restservice.FTPService;
 import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildEnhanced;
 import com.example.restservice.crud.ChildStatus;
+import com.example.restservice.crud.ChildWithImage;
 import com.example.restservice.crud.CommitteeSuggestion;
 import com.example.restservice.crud.Community;
 import com.example.restservice.crud.EducationStatus;
@@ -78,6 +84,9 @@ public class ChildBasicController {
 	
 	@Autowired
 	private NotificationService notificationService;
+	
+	@Autowired
+	private FTPService FTPService;
 	
 	@GetMapping("/religions")
 	@Cacheable("Religion")
@@ -151,6 +160,15 @@ public class ChildBasicController {
 	@PostMapping(path="/child")
 	public @Valid Child addChild(@Valid @RequestBody Child child) {
 		Child savedChildDetails = childRepository.save(child);
+		notificationService.sendAddChildNotification(savedChildDetails);
+		return savedChildDetails;
+
+	}
+	
+	@PostMapping(value = "/child-with-image")
+	public @Valid Child addChild(@RequestParam("file") MultipartFile file, @RequestParam("child") Child child) {
+		Child savedChildDetails = childRepository.save(child);
+		FTPService.uploadFile(savedChildDetails.getChildNo(), file);
 		notificationService.sendAddChildNotification(savedChildDetails);
 		return savedChildDetails;
 
