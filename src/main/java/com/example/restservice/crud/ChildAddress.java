@@ -1,6 +1,7 @@
 package com.example.restservice.crud;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,13 +26,25 @@ import lombok.Setter;
 
 
 @Entity
+@NamedStoredProcedureQueries({
+@NamedStoredProcedureQuery(name = "ChildAddress.getEmailIds", procedureName = "sp_Select_EmailIds",
+parameters  = {@StoredProcedureParameter(mode = ParameterMode.IN, name = "OrgId", type = Integer.class)}),
+@NamedStoredProcedureQuery(name = "ChildAddress.getMobileNos", procedureName = "sp_Select_MobileNos",
+parameters  = {@StoredProcedureParameter(mode = ParameterMode.IN, name = "OrgId", type = Integer.class)}),
+@NamedStoredProcedureQuery(name = "ChildAddress.getRhTypes", procedureName = "sp_fetch_RHtypes",
+parameters  = {@StoredProcedureParameter(mode = ParameterMode.IN, name = "RHNo", type = Integer.class)}),
+@NamedStoredProcedureQuery(name = "ChildAddress.getRhCodes", procedureName = "sp_fetch_RHCodes",
+parameters  = {@StoredProcedureParameter(mode = ParameterMode.IN, name = "RHNo", type = Integer.class)}),
+@NamedStoredProcedureQuery(name = "ChildAddress.getAge", procedureName = "sp_findage",
+parameters  = {@StoredProcedureParameter(mode = ParameterMode.IN, name = "CDOB", type = Integer.class)})
+})
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
-@Setter(value = AccessLevel.PACKAGE)
+//@Setter(value = AccessLevel.PACKAGE)
 @Getter
 public class ChildAddress {
-	
+	//
 	
 	public ChildAddress() {
 		super();

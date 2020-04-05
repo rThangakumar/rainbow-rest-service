@@ -20,9 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildClass;
 import com.example.restservice.crud.ChildEducation;
+import com.example.restservice.crud.ExamResults;
 import com.example.restservice.crud.SchoolType;
 import com.example.restservice.repository.ChildClassRepository;
 import com.example.restservice.repository.ChildEductionRepository;
+import com.example.restservice.repository.ChildRepository;
+import com.example.restservice.repository.ExamResultsRepository;
 import com.example.restservice.repository.SchoolTypeRepository;
 
 @RestController
@@ -38,6 +41,11 @@ public class ChildEducationController {
 	@Autowired
 	private ChildEductionRepository childEductionRepository;
 	
+	@Autowired
+	private ExamResultsRepository examResultsRepository;
+	
+	@Autowired
+	private ChildRepository childRepository;
 		
 	@GetMapping("/studying-class")
 	@Cacheable("StudyingClass")
@@ -59,14 +67,56 @@ public class ChildEducationController {
 	@GetMapping(path="/child-education/{childNo}", consumes = "application/json", produces = "application/json")
 	@Cacheable("ChildEducation")
 	public Optional<List<ChildEducation>> getChildEducation(@PathVariable Integer childNo) {
-		return childEductionRepository.findByChildNo(childNo);
+		Integer previousClass = null;
+		String dropoutReason = null;
+
+		Optional<Child> childList = childRepository.findById(Long.valueOf(childNo));
+		if(childList.isPresent()) {
+			previousClass = childList.get().getPreviousClassStudied();
+			dropoutReason = childList.get().getDropoutReason();
+		}
+		
+		Optional<List<ChildEducation>> childEducation = childEductionRepository.findByChildNo(childNo);
+		if(childEducation.isPresent()) {
+			for(ChildEducation ce : childEducation.get()) {
+				ce.setPreviousClassStudied(previousClass);
+				ce.setDropoutReason(dropoutReason);
+			}
+		}
+		
+		return childEducation;
 	}
 	
 	
 	@PutMapping(path="/child-education")
 	@CacheEvict (value= "ChildEducation", allEntries=true)
 	public ChildEducation upadteChildEducation(@Valid @RequestBody ChildEducation childEducation) {
+		Optional<Child> childList = childRepository.findById(Long.valueOf(childEducation.getChildNo()));
+		if(childList.isPresent()) {
+			Child child = childList.get();
+			child.setPreviousClassStudied(childEducation.getPreviousClassStudied());
+			child.setDropoutReason(childEducation.getDropoutReason());
+			childRepository.save(child);
+			System.out.println("Saved ChildBasic successfully");
+		}
+		
 		return childEductionRepository.save(childEducation);
+	}
+	
+	@PostMapping(path="/exam-results", consumes = "application/json", produces = "application/json")
+	public @Valid ExamResults addExamResults(@Valid @RequestBody ExamResults examResults) {
+		return examResultsRepository.save(examResults);
+	}
+	
+	@GetMapping(path="/exam-results/{childNo}", consumes = "application/json", produces = "application/json")
+	public Optional<List<ExamResults>> getExamResultsByChild(@PathVariable Integer childNo) {
+		return examResultsRepository.findByChildNo(childNo);
+	}
+	
+	
+	@PutMapping(path="/exam-results")
+	public ExamResults upadteExamResults(@Valid @RequestBody ExamResults examResults) {
+		return examResultsRepository.save(examResults);
 	}
 		
 }

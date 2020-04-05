@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildFamily;
 import com.example.restservice.crud.Occupation;
 import com.example.restservice.crud.Relation;
@@ -62,7 +63,22 @@ public class ChildRelationController {
 	
 	@GetMapping(path="/child-family/{childNo}", consumes = "application/json", produces = "application/json")
 	public Optional<List<ChildFamily>> getChildFamily(@PathVariable Integer childNo) {
-		return childFamilyRepository.findChildFamilyByChildNo(childNo);
+		Optional<List<ChildFamily>> childFamily = childFamilyRepository.findChildFamilyByChildNo(childNo);
+		if(childFamily.isPresent()) {
+			List<ChildFamily> familyList = childFamily.get();
+			for(ChildFamily family : familyList) {
+				Optional<Occupation> occupation = occupationRepository.findById(family.getOccupation());
+				if(occupation.isPresent()) {
+					family.setOccupationType(occupation.get().getOccupation());
+				}
+				
+				Optional<Relation> relation = relationRepository.findById(family.getRelation());
+				if(relation.isPresent()) {
+					family.setRelationType(relation.get().getRelation());
+				}
+			}
+		}
+		return childFamily;
 	}
 	
 	

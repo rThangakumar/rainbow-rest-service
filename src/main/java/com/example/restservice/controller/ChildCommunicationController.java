@@ -1,6 +1,7 @@
 package com.example.restservice.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -28,6 +29,7 @@ import com.example.restservice.repository.ChildClassRepository;
 import com.example.restservice.repository.ChildCommunicationRepository;
 import com.example.restservice.repository.CountryRepository;
 import com.example.restservice.repository.DistrictRepository;
+import com.example.restservice.repository.NotificationCustomRepository;
 import com.example.restservice.repository.SchoolTypeRepository;
 import com.example.restservice.repository.StateRepository;
 
@@ -43,6 +45,9 @@ public class ChildCommunicationController {
 	
 	@Autowired
 	private DistrictRepository districtRepository;
+	
+	@Autowired
+	private NotificationCustomRepository notificationRepo;
 	
 	@Autowired
 	private ChildCommunicationRepository childCommunicationRepository;
