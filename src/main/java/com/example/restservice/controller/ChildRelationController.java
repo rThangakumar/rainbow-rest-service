@@ -1,6 +1,8 @@
 package com.example.restservice.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -20,9 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildFamily;
 import com.example.restservice.crud.Occupation;
+import com.example.restservice.crud.PresentCondition;
 import com.example.restservice.crud.Relation;
 import com.example.restservice.repository.ChildFamilyRepository;
 import com.example.restservice.repository.OccupationRepository;
+import com.example.restservice.repository.PresentConditionRepository;
 import com.example.restservice.repository.RelationRepository;
 
 @RestController
@@ -37,6 +41,10 @@ public class ChildRelationController {
 	
 	@Autowired
 	private ChildFamilyRepository childFamilyRepository;
+	
+	@Autowired
+	private PresentConditionRepository presentConditionRepo;
+
 	
 
 	@GetMapping("/relations")
@@ -64,12 +72,15 @@ public class ChildRelationController {
 	@GetMapping(path="/child-family/{childNo}", consumes = "application/json", produces = "application/json")
 	public Optional<List<ChildFamily>> getChildFamily(@PathVariable Integer childNo) {
 		Optional<List<ChildFamily>> childFamily = childFamilyRepository.findChildFamilyByChildNo(childNo);
+		Map<Integer, String> conMap = getPresnetCondition();
 		if(childFamily.isPresent()) {
 			List<ChildFamily> familyList = childFamily.get();
 			for(ChildFamily family : familyList) {
+				family.setPresentconditionType(conMap.get(family.getPresentcondition()));
 				Optional<Occupation> occupation = occupationRepository.findById(family.getOccupation());
 				if(occupation.isPresent()) {
 					family.setOccupationType(occupation.get().getOccupation());
+					
 				}
 				
 				Optional<Relation> relation = relationRepository.findById(family.getRelation());
@@ -86,5 +97,14 @@ public class ChildRelationController {
 	@CacheEvict (value= "ChildFamily", allEntries=true)
 	public ChildFamily upadteChildFamily(@Valid @RequestBody ChildFamily childFamily) {
 		return childFamilyRepository.save(childFamily);
+	}
+	
+	private Map<Integer, String> getPresnetCondition(){
+		List<PresentCondition> presenConList = presentConditionRepo.findAll();
+		Map<Integer, String> conList = new HashMap<Integer, String>();
+		for(PresentCondition condition : presenConList) {
+			conList.put(condition.getPreconNo(), condition.getPrecon());
+		}
+		return conList;
 	}
 }

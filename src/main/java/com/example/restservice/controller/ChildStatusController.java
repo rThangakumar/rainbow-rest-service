@@ -60,9 +60,9 @@ public class ChildStatusController {
 		return ResponseEntity.ok().body(closedChildActionLists);
 	}
 	
-	@PutMapping(path="/child-status/{childNo}")
+	@PutMapping(path="/child-status/{childNo}/{orgId}")
 	@CacheEvict (value= "Child", allEntries=true)
-	public Integer updateChild(@PathVariable Long childNo, @Valid @RequestBody Child child) {
+	public Integer updateChild(@PathVariable Long childNo, @Valid @RequestBody Child child, @PathVariable(required = false) Integer orgIdNo) {
 		child.setChildNo(childNo);
 		if (null != child.getChildStatus() && 0 != child.getChildStatus()) {
 			return childRepository.saveChildStatus(child.getChildStatus(),childNo);

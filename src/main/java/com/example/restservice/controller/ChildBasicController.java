@@ -141,10 +141,10 @@ public class ChildBasicController {
 		return ResponseEntity.ok(childrenInTheHome);
 	}
 	
-	@PostMapping(path="/child")
-	public @Valid Child addChild(@Valid @RequestBody Child child) {
+	@PostMapping(path="/child/{orgId}")
+	public @Valid Child addChild(@Valid @RequestBody Child child, @PathVariable Integer orgId) {
 		Child savedChildDetails = childRepository.save(child);
-		notificationService.sendAddChildNotification(savedChildDetails);
+		notificationService.sendAddChildNotification(savedChildDetails, orgId);
 		return savedChildDetails;
 
 	}
