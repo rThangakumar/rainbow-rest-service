@@ -18,11 +18,13 @@ import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildAddress;
 import com.example.restservice.crud.ChildLeavingReason;
 import com.example.restservice.crud.ChildLeftPlace;
+import com.example.restservice.crud.ChildMap;
 import com.example.restservice.crud.ChildStatus;
 import com.example.restservice.crud.ClosedChildActionList;
 import com.example.restservice.crud.GeneralHealth;
 import com.example.restservice.repository.ChildLeavingReasonRepository;
 import com.example.restservice.repository.ChildLeftPlaceRepository;
+import com.example.restservice.repository.ChildMapRepository;
 import com.example.restservice.repository.ChildRepository;
 import com.example.restservice.repository.ClosedChildActionListRepository;
 
@@ -41,6 +43,9 @@ public class ChildStatusController {
 	
 	@Autowired
 	private ChildRepository childRepository;
+	
+	@Autowired
+	private ChildMapRepository childMapRepository;
 	
 	@GetMapping("/child-leaving-reasons")
 	public ResponseEntity<List<ChildLeavingReason>> getChildLeavingReasons() {
@@ -62,12 +67,16 @@ public class ChildStatusController {
 	
 	@PutMapping(path="/child-status/{childNo}/{orgId}")
 	@CacheEvict (value= "Child", allEntries=true)
-	public Integer updateChild(@PathVariable Long childNo, @Valid @RequestBody Child child, @PathVariable(required = false) Integer orgIdNo) {
+	public ChildMap updateChild(@PathVariable Long childNo, @Valid @RequestBody ChildMap childMap, 
+			@PathVariable(required = false) Integer orgIdNo) throws Exception {
+		Child child = new Child();
 		child.setChildNo(childNo);
-		if (null != child.getChildStatus() && 0 != child.getChildStatus()) {
-			return childRepository.saveChildStatus(child.getChildStatus(),childNo);
+		childMap.setChildNo(childNo);
+		if (null != childMap.getChildStatusID()) {
+			childRepository.saveChildStatus(childMap.getChildStatusID(),childNo);
+			return childMapRepository.save(childMap);
 		} else {
-			return 0;
+			throw new Exception("Status should not be null");
 		}
 		
 	}

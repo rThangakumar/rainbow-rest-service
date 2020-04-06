@@ -1,5 +1,7 @@
 package com.example.restservice.crud;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +20,7 @@ public class ProfileDescription {
 	public Long profileDescriptionNo;
 	public Long childNo;
 	public String description;
+	public Date modified_ON;
 	public void setProfileDescriptionNo(Long profileDescriptionNo) {
 		this.profileDescriptionNo = profileDescriptionNo;
 	}
