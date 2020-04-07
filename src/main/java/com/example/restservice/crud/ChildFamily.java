@@ -44,6 +44,7 @@ public class ChildFamily {
 	public Integer occupation;
 	public transient String occupationType;
 	public Integer presentcondition;
+	public transient String presentconditionType;
 	public String income;
 	public String remarks;
 	public String getRelationType() {
@@ -69,6 +70,18 @@ public class ChildFamily {
 	}
 	public void setOccupation(Integer occupation) {
 		this.occupation = occupation;
+	}
+	public Integer getPresentcondition() {
+		return presentcondition;
+	}
+	public void setPresentcondition(Integer presentcondition) {
+		this.presentcondition = presentcondition;
+	}
+	public String getPresentconditionType() {
+		return presentconditionType;
+	}
+	public void setPresentconditionType(String presentconditionType) {
+		this.presentconditionType = presentconditionType;
 	}
 	
 	

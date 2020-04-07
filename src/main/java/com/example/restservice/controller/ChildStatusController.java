@@ -65,9 +65,10 @@ public class ChildStatusController {
 		return ResponseEntity.ok().body(closedChildActionLists);
 	}
 	
-	@PutMapping(path="/child-status/{childNo}")
+	@PutMapping(path="/child-status/{childNo}/{orgId}")
 	@CacheEvict (value= "Child", allEntries=true)
-	public ChildMap updateChild(@PathVariable Long childNo, @Valid @RequestBody ChildMap childMap) throws Exception {
+	public ChildMap updateChild(@PathVariable Long childNo, @Valid @RequestBody ChildMap childMap, 
+			@PathVariable(required = false) Integer orgIdNo) throws Exception {
 		Child child = new Child();
 		child.setChildNo(childNo);
 		childMap.setChildNo(childNo);

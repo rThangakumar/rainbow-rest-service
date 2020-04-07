@@ -41,8 +41,8 @@ public class NotificationService {
 	
 	
 	
-	public boolean sendAddChildNotification(Child child) {
-		int id = 9;// replace this with the logged in user ord id
+	public boolean sendAddChildNotification(Child child, Integer orgId) {
+		int id = orgId;// replace this with the logged in user ord id
 		//String message = "";
 		
 		String toEmailIds = notificationRepo.getEmailIdsByOrg(id);

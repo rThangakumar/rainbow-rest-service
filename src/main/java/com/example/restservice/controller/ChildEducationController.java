@@ -65,7 +65,7 @@ public class ChildEducationController {
 	}
 	
 	@GetMapping(path="/child-education/{childNo}", consumes = "application/json", produces = "application/json")
-	@Cacheable("ChildEducation")
+//	@Cacheable("ChildEducation")
 	public Optional<List<ChildEducation>> getChildEducation(@PathVariable Integer childNo) {
 		Integer previousClass = null;
 		String dropoutReason = null;
