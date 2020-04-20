@@ -44,6 +44,7 @@ public class CommitteeSuggestion_staff {
 	
 	@ManyToOne
     @JoinColumn(name = "CommitteeSuggestionNo")
+	@JsonIgnore
 	private CommitteeSuggestion parent;
 	
 	
