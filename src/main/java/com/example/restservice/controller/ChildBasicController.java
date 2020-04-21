@@ -25,6 +25,7 @@ import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildEnhanced;
 import com.example.restservice.crud.ChildStatus;
 import com.example.restservice.crud.CommitteeSuggestion;
+import com.example.restservice.crud.CommitteeSuggestion_staff;
 import com.example.restservice.crud.Community;
 import com.example.restservice.crud.EducationStatus;
 import com.example.restservice.crud.MotherTongue;
@@ -214,6 +215,11 @@ public class ChildBasicController {
 	
 	@PostMapping(path="/admission-committee-suggestion")
 	public @Valid CommitteeSuggestion addAdmissionCommitteeSuggestion(@Valid @RequestBody CommitteeSuggestion committeeSuggestion){
+		// my changes - to add parent for the Child
+		List<CommitteeSuggestion_staff> staffNumber = committeeSuggestion.getStaffNumber();
+		for (CommitteeSuggestion_staff lang : staffNumber) {
+			lang.setParent(committeeSuggestion);
+		}
 		return committeeSuggestionRepository.save(committeeSuggestion);
 	}
 	
