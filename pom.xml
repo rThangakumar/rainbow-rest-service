@@ -119,7 +119,7 @@
 					<schemaVersion>V2</schemaVersion>
 					<resourceGroup>rest-service-rg</resourceGroup>
 					<appName>rest-service</appName>
-					<pricingTier>F1</pricingTier>
+					<pricingTier>B1</pricingTier>
 					<region>westeurope</region>
 					<runtime>
 						<os>linux</os>

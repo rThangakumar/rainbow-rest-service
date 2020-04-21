@@ -44,10 +44,9 @@ public class ChildClass {
 		return this.studyingclass;
 	}
 
-	@Column(name="status")
-	public int getStatus() {
-		return status;
-	}
+	/*
+	 * @Column(name="status") public int getStatus() { return status; }
+	 */
 
 
 	public void setStatus(int status) {

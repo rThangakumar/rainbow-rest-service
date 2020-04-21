@@ -155,10 +155,10 @@ public class ChildBasicController {
 		return ResponseEntity.ok(childrenInTheHome);
 	}
 	
-	@PostMapping(path="/child/{orgId}")
-	public @Valid Child addChild(@Valid @RequestBody Child child, @PathVariable Integer orgId) {
+	@PostMapping(path="/child")
+	public @Valid Child addChild(@Valid @RequestBody Child child) {
 		Child savedChildDetails = childRepository.save(child);
-		notificationService.sendAddChildNotification(savedChildDetails, orgId);
+		notificationService.sendAddChildNotification(savedChildDetails, child.getRainbowHomeNumber());
 		return savedChildDetails;
 
 	}
@@ -199,7 +199,6 @@ public class ChildBasicController {
 	}
 	
 	@GetMapping(path="/child-profile-all-description/{childNo}")
-	@Cacheable("ChildProfile")
 	public Optional<List<ProfileDescription>> getAllProfileDescription(@PathVariable Long childNo) {
 		return profileDescriptionRepository.findAllByChildNo(childNo);
 	}

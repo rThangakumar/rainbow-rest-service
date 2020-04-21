@@ -31,6 +31,7 @@ public class ChildMedicalTreatment {
 	private Date illnessStartDate;
 	private Date visitedDate;
 	private String hospitalName;
+	private String doctorName;
 	private String diseaseDiagnosed;
 	private String furtherTests;
 	private Long totalMedicalCost;
