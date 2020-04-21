@@ -19,11 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.restservice.NotificationService;
 import com.example.restservice.FTPService;
+import com.example.restservice.NotificationService;
 import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildEnhanced;
 import com.example.restservice.crud.ChildStatus;
+import com.example.restservice.crud.ChildStayType;
 import com.example.restservice.crud.CommitteeSuggestion;
 import com.example.restservice.crud.CommitteeSuggestion_staff;
 import com.example.restservice.crud.Community;
@@ -34,8 +35,23 @@ import com.example.restservice.crud.ProfileDescription;
 import com.example.restservice.crud.ReasonForAdmission;
 import com.example.restservice.crud.ReferralSource;
 import com.example.restservice.crud.Religion;
+import com.example.restservice.crud.ScholarshipType;
 import com.example.restservice.crud.Staff;
-import com.example.restservice.repository.*;
+import com.example.restservice.repository.ChildEnhancedRepository;
+import com.example.restservice.repository.ChildRepository;
+import com.example.restservice.repository.ChildStatusRepository;
+import com.example.restservice.repository.ChildStayTypeRepository;
+import com.example.restservice.repository.CommitteeSuggestionRepository;
+import com.example.restservice.repository.CommunityRepository;
+import com.example.restservice.repository.EducationStatusRepository;
+import com.example.restservice.repository.MotherTongueRepository;
+import com.example.restservice.repository.ParentalStatusRepository;
+import com.example.restservice.repository.ProfileDescriptionRepository;
+import com.example.restservice.repository.ReasonForAdmissionRepository;
+import com.example.restservice.repository.ReferralSourceRepository;
+import com.example.restservice.repository.ReligionRepository;
+import com.example.restservice.repository.ScholarshipTypeRepository;
+import com.example.restservice.repository.StaffRepository;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -85,6 +101,26 @@ public class ChildBasicController {
 	
 	@Autowired
 	private FTPService FTPService;
+	
+	@Autowired
+	private ChildStayTypeRepository childStayTypeRepository;
+	
+	@Autowired
+	private ScholarshipTypeRepository scholarshipTypeRepository;
+	
+	@GetMapping("/ScholarshipType")
+	@Cacheable("ScholarshipType")
+	public ResponseEntity<List<ScholarshipType>> getAllScholarshipType() {
+		List<ScholarshipType> childStayType = scholarshipTypeRepository.findAll();
+		return ResponseEntity.ok().body(childStayType);
+	}
+	
+	@GetMapping("/childStayType")
+	@Cacheable("childStayType")
+	public ResponseEntity<List<ChildStayType>> getAllChildStayType() {
+		List<ChildStayType> childStayType = childStayTypeRepository.findAll();
+		return ResponseEntity.ok().body(childStayType);
+	}
 	
 	@GetMapping("/religions")
 	@Cacheable("Religion")
