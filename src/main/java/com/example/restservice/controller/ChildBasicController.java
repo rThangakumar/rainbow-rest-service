@@ -115,7 +115,7 @@ public class ChildBasicController {
 		return ResponseEntity.ok().body(childStayType);
 	}
 	
-	@GetMapping("/childStay-type")
+	@GetMapping("/childstay-type")
 	@Cacheable("childStayType")
 	public ResponseEntity<List<ChildStayType>> getAllChildStayType() {
 		List<ChildStayType> childStayType = childStayTypeRepository.findAll();
