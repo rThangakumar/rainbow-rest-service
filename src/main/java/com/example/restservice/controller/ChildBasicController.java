@@ -108,14 +108,14 @@ public class ChildBasicController {
 	@Autowired
 	private ScholarshipTypeRepository scholarshipTypeRepository;
 	
-	@GetMapping("/ScholarshipType")
+	@GetMapping("/scholarship-type")
 	@Cacheable("ScholarshipType")
 	public ResponseEntity<List<ScholarshipType>> getAllScholarshipType() {
 		List<ScholarshipType> childStayType = scholarshipTypeRepository.findAll();
 		return ResponseEntity.ok().body(childStayType);
 	}
 	
-	@GetMapping("/childStayType")
+	@GetMapping("/childStay-type")
 	@Cacheable("childStayType")
 	public ResponseEntity<List<ChildStayType>> getAllChildStayType() {
 		List<ChildStayType> childStayType = childStayTypeRepository.findAll();
