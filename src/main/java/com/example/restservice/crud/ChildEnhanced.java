@@ -57,6 +57,8 @@ public class ChildEnhanced {
 	
 	private List<ChildMapEnhanced> childMaps = new ArrayList<>();
 	
+	private String picture;
+	
 	private String identificationMark1;
 	
 	private String identificationMark2;
@@ -264,6 +266,15 @@ public class ChildEnhanced {
 		this.rainbowHomeNumber = rainbowHomeNumber;
 	}
 	
+	@Column(name="Picture")
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
 	@Column(name="IdentificationMark1")
 	public String getIdentificationMark1() {
 		return identificationMark1;

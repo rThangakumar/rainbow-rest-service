@@ -72,7 +72,12 @@ public class ChildStatusController {
 		child.setChildNo(childNo);
 		childMap.setChildNo(childNo);
 		if (null != childMap.getChildStatusID()) {
-			childRepository.saveChildStatus(childMap.getChildStatusID(),childNo);
+			Integer childStatus = childMap.getChildStatusID();
+			if (childMap.getChildStatusID().equals(5)) {
+				childStatus = 3;
+			}
+			 
+			childRepository.saveChildStatus(childStatus,childNo);
 			return childMapRepository.save(childMap);
 		} else {
 			throw new Exception("Status should not be null");
