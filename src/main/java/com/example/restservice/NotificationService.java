@@ -47,9 +47,9 @@ public class NotificationService {
 		
 		String toEmailIds = notificationRepo.getEmailIdsByOrg(id);
 		String rhTypes = notificationRepo.getRhTypes(id);
-		String rhCodes = notificationRepo.getRhTypes(id);
+		String rhCodes = notificationRepo.getRhCodes(id);
 		String mobildNos = notificationRepo.getMobileNumbers(id);
-		Optional<RainbowHome> rhHomeList = rainbowRepository.findById(Integer.valueOf(rhCodes));
+		Optional<RainbowHome> rhHomeList = rainbowRepository.findById(Integer.valueOf(id));
 		String city = null;
 		String name = null;
 		if(rhHomeList.isPresent()) {
@@ -60,7 +60,7 @@ public class NotificationService {
 		if( (child.getChildNo() == 0 && rhTypes == "1")) {
 			if (toEmailIds == "")
             {
-				toEmailIds = "raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in";
+				toEmailIds = "raju.rfi@rainbowhome.in,babu.rfi@rainbowhome.in";
 				//Msg.Bcc.Add("raju.rfi@rainbowhome.in,babu.rfi@rainbowhome.in");
 				
             }
@@ -84,9 +84,8 @@ public class NotificationService {
 		emailParams.setSubject("Test");
 		emailParams.setMessage(message);
 		emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + "(" + age + ")yrs admitted  in " + rhCodes);
-		
-		emailParams.setToAddress("Srinivas.uppu@gmail.com, "+toEmailIds);
-		emailParams.setBccAdress("raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
+		emailParams.setToAddress(toEmailIds);
+		emailParams.setBccAdress("Srinivas.uppu@gmail.com, raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
 		
 		try {
 			emailService.sendHtmlMail(emailParams);
@@ -95,16 +94,74 @@ public class NotificationService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		SMSDetails smsDetails = new SMSDetails(null, null, null);
+		SMSDetails smsDetails = new SMSDetails();
 		smsDetails.setMessage(message);
 		smsDetails.setSender("RFIROR");
-		smsDetails.setMobileNo(mobildNos+", 9000988856");
+		smsDetails.setMobileNo(mobildNos+"9000988856");
 		smsService.sendSms(smsDetails);
 		return true;
 	}
 	
 	public boolean sendUpdateChildNotification(Child child) {
+		int id = orgId;// replace this with the logged in user ord id
+		//String message = "";
+		
+		String toEmailIds = notificationRepo.getEmailIdsByOrg(id);
+		String rhTypes = notificationRepo.getRhTypes(id);
+		String rhCodes = notificationRepo.getRhCodes(id);
+		String mobildNos = notificationRepo.getMobileNumbers(id);
+		Optional<RainbowHome> rhHomeList = rainbowRepository.findById(Integer.valueOf(id));
+		String city = null;
+		String name = null;
+		if(rhHomeList.isPresent()) {
+			city = rhHomeList.get().getCity();
+			name = rhHomeList.get().getRhName();
+		}
+		int age = calculateAge(child.getDateOfBirth());
+		if( (child.getChildNo() == 0 && rhTypes == "1")) {
+			if (toEmailIds == "")
+            {
+				toEmailIds = "raju.rfi@rainbowhome.in,babu.rfi@rainbowhome.in";
+				//Msg.Bcc.Add("raju.rfi@rainbowhome.in,babu.rfi@rainbowhome.in");
+				
+            }
+		}
+		String childName = child.getFirstName()+" " +child.getLastName();
+		String message = "Hi Team" + System.lineSeparator()+ System.lineSeparator()
+		+"Child Name " + childName + 
+		" " + age + " Years old" + " admitted" + " on Date" + child.getAdmissionDate() + 
+		" in Code  based on " + System.lineSeparator() 
+		+ "level "+rhCodes + System.lineSeparator() +
+		"Type RH City "+city+ " for reason child wants to be with Parents/Grand parents/Guardian though the family condition not improved." + 
+		System.lineSeparator() +
+		System.lineSeparator() + 
+		 
+		"Thank you" 
+		+System.lineSeparator() + 
+				 "This is test message pls ignore";
+		
+		EmailData emailParams = new EmailData();
+		emailParams.setFromAddress(fromAddress);
+		emailParams.setSubject("Test");
+		emailParams.setMessage(message);
+		emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + "(" + age + ")yrs admitted  in " + rhCodes);
+		emailParams.setToAddress(toEmailIds);
+		emailParams.setBccAdress("Srinivas.uppu@gmail.com, raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
+		
+		try {
+			emailService.sendHtmlMail(emailParams);
+			
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		SMSDetails smsDetails = new SMSDetails();
+		smsDetails.setMessage(message);
+		smsDetails.setSender("RFIROR");
+		smsDetails.setMobileNo(mobildNos+"9000988856");
+		smsService.sendSms(smsDetails);
 		return true;
+		
 	}
 	
 	private int calculateAge(Date dob) {
