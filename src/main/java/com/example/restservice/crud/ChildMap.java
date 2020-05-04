@@ -35,7 +35,7 @@ public class ChildMap implements Serializable{
 	private Integer leavingReasonId;
 	private String reason;
 	private Integer childLeftPlaceId;
-	private Integer actionTakenId;
+	private String actionTakenId;
 	private String childStayPlace;
 	private Integer followedBy;
 	private Integer approvedBy;
