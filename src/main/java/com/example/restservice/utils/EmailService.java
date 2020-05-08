@@ -1,6 +1,7 @@
 package com.example.restservice.utils;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,13 @@ public class EmailService {
 		MimeMessageHelper helper = new MimeMessageHelper(msg, true);
 
 		helper.setTo(data.getToAddress());
+		InternetAddress[] toAddresses = InternetAddress.parse(data.getToAddress());
+		InternetAddress[] bcc = InternetAddress.parse(data.getBccAdress());
+		helper.setTo(toAddresses);
 
 		helper.setSubject(data.getSubject());
 		helper.setText(data.getMessage(), true);
-		helper.setBcc(data.getBccAdress());
+		helper.setBcc(bcc);
 		emailSender.send(msg);
 
 	}
