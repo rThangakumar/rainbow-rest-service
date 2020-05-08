@@ -103,7 +103,7 @@ public class NotificationService {
 	}
 	
 	public boolean sendUpdateChildNotification(Child child) {
-		int id = orgId;// replace this with the logged in user ord id
+		int id = child.getRainbowHomeNumber();// replace this with the logged in user ord id
 		//String message = "";
 		
 		String toEmailIds = notificationRepo.getEmailIdsByOrg(id);
