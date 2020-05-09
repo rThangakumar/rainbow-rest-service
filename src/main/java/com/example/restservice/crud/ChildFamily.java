@@ -47,6 +47,8 @@ public class ChildFamily {
 	public transient String presentconditionType;
 	public String income;
 	public String remarks;
+	public Integer deletestatus;
+	
 	public String getRelationType() {
 		return relationType;
 	}
