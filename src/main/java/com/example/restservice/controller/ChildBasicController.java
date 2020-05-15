@@ -274,6 +274,12 @@ public class ChildBasicController {
 	@Cacheable("CommitteeSuggestion")
 	public @Valid CommitteeSuggestion updateCommitteeSuggestion(@PathVariable Long committeeSuggestionNo, @Valid @RequestBody CommitteeSuggestion committeeSuggestion) {
 		committeeSuggestion.setCommitteeSuggestionNo(committeeSuggestionNo);
+		
+		List<CommitteeSuggestion_staff> staffNumber = committeeSuggestion.getStaffNumber();
+		for (CommitteeSuggestion_staff lang : staffNumber) {
+			lang.setParent(committeeSuggestion);
+		}
+		
 		return committeeSuggestionRepository.save(committeeSuggestion);
 	}
 	
