@@ -38,11 +38,11 @@ public class CommitteeSuggestion {
 	@Column(name="StaffNo")
 	private Integer staffNo;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(
-        name = "CommitteeSuggestionNo",
-        referencedColumnName = "CommitteeSuggestionNo"
-    )
+	@OneToMany(cascade = CascadeType.ALL , mappedBy="parent" , fetch=FetchType.LAZY)
+  //  @JoinColumn(
+  //      name = "CommitteeSuggestionNo",
+  //      referencedColumnName = "CommitteeSuggestionNo"
+  //  )
 	private List<CommitteeSuggestion_staff> staffNumber;
     
 	@Column(name="CommitteeSuggestionDate")
