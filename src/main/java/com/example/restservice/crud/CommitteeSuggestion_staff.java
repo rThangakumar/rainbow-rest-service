@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,9 +42,10 @@ public class CommitteeSuggestion_staff {
 	@Column(name="StaffNo")
 	private Integer StaffNo;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "CommitteeSuggestionNo")
 	@JsonIgnore
+	@ToString.Exclude
 	private CommitteeSuggestion parent;
 	
 	
