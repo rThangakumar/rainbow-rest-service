@@ -16,5 +16,6 @@ public interface ChildFamilyRepository extends JpaRepository<ChildFamily, Intege
 
 	Optional<List<ChildFamily>> findChildFamilyByChildNo(Integer childNo);
 	Optional<ChildFamily> findChildFamilyByFamilyNo(Integer childNo);
-
+	Optional<ChildFamily> findChildFamilyByFamilyNoAndDeletestatus(Integer childNo, Integer deletestatus);
+	Optional<List<ChildFamily>> findChildFamilyByChildNoAndDeletestatus(Integer childNo, Integer deletestatus);
 }
