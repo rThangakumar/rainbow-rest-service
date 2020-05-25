@@ -66,12 +66,12 @@ public class ChildRelationController {
 	@GetMapping(path="/family/{familyNo}", consumes = "application/json", produces = "application/json")
 	@Cacheable("ChildFamily")
 	public Optional<ChildFamily> getChildFamilyByFamilyNo(@PathVariable Integer familyNo) {
-		return childFamilyRepository.findChildFamilyByFamilyNo(familyNo);
+		return childFamilyRepository.findChildFamilyByFamilyNoAndDeletestatus(familyNo, new Integer(1));
 	}
 	
 	@GetMapping(path="/child-family/{childNo}", consumes = "application/json", produces = "application/json")
 	public Optional<List<ChildFamily>> getChildFamily(@PathVariable Integer childNo) {
-		Optional<List<ChildFamily>> childFamily = childFamilyRepository.findChildFamilyByChildNo(childNo);
+		Optional<List<ChildFamily>> childFamily = childFamilyRepository.findChildFamilyByChildNoAndDeletestatus(childNo, new Integer(1));
 		Map<Integer, String> conMap = getPresnetCondition();
 		if(childFamily.isPresent()) {
 			List<ChildFamily> familyList = childFamily.get();
