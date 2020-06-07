@@ -43,6 +43,8 @@ public class Child {
 	
 	private String referredBy;
 	
+	private String picture;
+	
 	private String referredSource;
 	
 	private Integer childStatus;
@@ -341,5 +343,14 @@ public class Child {
 	public void setBloodGroup(Integer bloodGroup) {
 		this.bloodGroup = bloodGroup;
 	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	
 	
 }

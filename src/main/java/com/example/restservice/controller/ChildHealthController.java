@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.restservice.crud.BloodGroup;
 import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildHealth;
 import com.example.restservice.crud.ChildMedicalTreatment;
@@ -26,6 +27,7 @@ import com.example.restservice.crud.GeneralHealth;
 import com.example.restservice.crud.HealthChecklist;
 import com.example.restservice.crud.HealthGrowthForm;
 import com.example.restservice.dto.ChildHealthDTO;
+import com.example.restservice.repository.BloodGroupRepository;
 import com.example.restservice.repository.ChildHealthRepository;
 import com.example.restservice.repository.ChildMedicalTreatmentRepository;
 import com.example.restservice.repository.ChildRepository;
@@ -55,6 +57,9 @@ public class ChildHealthController {
 	@Autowired
 	private ChildRepository childRepository;
 	
+	@Autowired
+	private BloodGroupRepository bloodGroupRepo;
+	
 	@GetMapping("/general-health")
 	public ResponseEntity<List<GeneralHealth>> getCountry() {
 		List<GeneralHealth> generalHealthList = generalHealthRepository.findAll();
@@ -68,7 +73,7 @@ public class ChildHealthController {
 	}
 	
 	@GetMapping("/child-health-all-records/{childNo}")
-	@Cacheable("ChildHealthAllRecords")
+	//@Cacheable("ChildHealthAllRecords")
 	public List<ChildHealth> getAllHealthForAChild(@PathVariable Long childNo) {
 		return childHealthRepository.findAllChildHealthByChildNo(childNo);
 	}
@@ -178,5 +183,12 @@ public class ChildHealthController {
 		healthGrowthForm.setHealthGrowthFormNo(healthGrowthFormNo);
 		return healthGrowthFormRepository.save(healthGrowthForm);
 	}
+	@GetMapping("/bloodgroups")
+	public ResponseEntity<List<BloodGroup>> getBloodGroups() {
+		List<BloodGroup> bloodGroupList = bloodGroupRepo.findAll();
+		return ResponseEntity.ok().body(bloodGroupList);
+	}
+	
+
 	
 }

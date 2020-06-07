@@ -201,9 +201,11 @@ public class ChildBasicController {
 	
 	@PostMapping(value = "/child-with-image/{orgId}")
 	public @Valid Child addChild(@RequestParam("file") MultipartFile file, @RequestParam("child") Child child, @PathVariable Integer orgId) {
+		String fileName = "childpic"+child.getChildNo()+".png";
+		child.setPicture(fileName);
 		Child savedChildDetails = childRepository.save(child);
 		FTPService.uploadFile(savedChildDetails.getChildNo(), file);
-		notificationService.sendAddChildNotification(savedChildDetails, orgId);
+		//notificationService.sendAddChildNotification(savedChildDetails, orgId);
 		return savedChildDetails;
 
 	}
