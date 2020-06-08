@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.restservice.crud.Child;
+import com.example.restservice.crud.ChildExitCredentials;
 import com.example.restservice.crud.RainbowHome;
 import com.example.restservice.model.EmailData;
 import com.example.restservice.model.SMSDetails;
@@ -66,16 +67,16 @@ public class NotificationService {
             }
 		}
 		String childName = child.getFirstName()+" " +child.getLastName();
-		String message = "Hi Team" + System.lineSeparator()+ System.lineSeparator()
+		String message = "Hi Team<br/>" + System.lineSeparator()+ System.lineSeparator()
 		+"Child Name " + childName + 
 		" " + age + " Years old" + " admitted" + " on Date" + child.getAdmissionDate() + 
-		" in Code  based on " + System.lineSeparator() 
+		" in Code  based on <br/> " + System.lineSeparator() 
 		+ "level "+rhCodes + System.lineSeparator() +
-		"Type RH City "+city+ " for " + child.getReasonForAdmission()+"." + 
+		"Type RH City "+city+ " for " + child.getReasonForAdmission()+"." + "<br/><br/>"+
 		System.lineSeparator() +
 		System.lineSeparator() + 
-		"Hearty Welcome "+childName + System.lineSeparator() + 
-		"Thank you" 
+		"Hearty Welcome <br/>"+childName + System.lineSeparator() + 
+		"Thank you <br/>" 
 		+System.lineSeparator() + 
 				 "This is test message pls ignore";
 		
@@ -85,7 +86,7 @@ public class NotificationService {
 		emailParams.setMessage(message);
 		emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + "(" + age + ")yrs admitted  in " + rhCodes);
 		emailParams.setToAddress(toEmailIds);
-		emailParams.setBccAdress("Srinivas.uppu@gmail.com, raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
+		emailParams.setBccAdress("k.ramakrishna93@gmail.com, Srinivas.uppu@gmail.com, raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
 		
 		try {
 			emailService.sendHtmlMail(emailParams);
@@ -97,13 +98,13 @@ public class NotificationService {
 		SMSDetails smsDetails = new SMSDetails();
 		smsDetails.setMessage(message);
 		smsDetails.setSender("RFIROR");
-		smsDetails.setMobileNo(mobildNos+"9000988856");
+		smsDetails.setMobileNo(mobildNos+"9000988856, 7396402348");
 		smsService.sendSms(smsDetails);
 		return true;
 	}
 	
-	public boolean sendUpdateChildNotification(Child child) {
-		int id = child.getRainbowHomeNumber();// replace this with the logged in user ord id
+	public boolean sendUpdateChildExitingNotification(Child child) {
+		int id = child.getRainbowHomeNumber();
 		//String message = "";
 		
 		String toEmailIds = notificationRepo.getEmailIdsByOrg(id);
@@ -127,12 +128,12 @@ public class NotificationService {
             }
 		}
 		String childName = child.getFirstName()+" " +child.getLastName();
-		String message = "Hi Team" + System.lineSeparator()+ System.lineSeparator()
+		String message = "Hi Team, <br/>" + System.lineSeparator()+ System.lineSeparator()
 		+"Child Name " + childName + 
 		" " + age + " Years old" + " admitted" + " on Date" + child.getAdmissionDate() + 
-		" in Code  based on " + System.lineSeparator() 
-		+ "level "+rhCodes + System.lineSeparator() +
-		"Type RH City "+city+ " for reason child wants to be with Parents/Grand parents/Guardian though the family condition not improved." + 
+		" in Code  based on <br/>" + System.lineSeparator() 
+		+ "level <br/>"+rhCodes + System.lineSeparator() +
+		"Type RH City "+city+ "leaving for reason, child wants to be with Parents/Grand parents/Guardian though the family condition not improved.<br/><br/>" + 
 		System.lineSeparator() +
 		System.lineSeparator() + 
 		 
@@ -144,9 +145,9 @@ public class NotificationService {
 		emailParams.setFromAddress(fromAddress);
 		emailParams.setSubject("Test");
 		emailParams.setMessage(message);
-		emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + "(" + age + ")yrs admitted  in " + rhCodes);
+		emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + "(" + age + ")yrs status update " + rhCodes);
 		emailParams.setToAddress(toEmailIds);
-		emailParams.setBccAdress("Srinivas.uppu@gmail.com, raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
+		emailParams.setBccAdress("k.ramakrishna93@gmail.com, Srinivas.uppu@gmail.com, raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
 		
 		try {
 			emailService.sendHtmlMail(emailParams);
@@ -158,7 +159,7 @@ public class NotificationService {
 		SMSDetails smsDetails = new SMSDetails();
 		smsDetails.setMessage(message);
 		smsDetails.setSender("RFIROR");
-		smsDetails.setMobileNo(mobildNos+"9000988856");
+		smsDetails.setMobileNo(mobildNos+",9000988856, 7396402348");
 		smsService.sendSms(smsDetails);
 		return true;
 		
@@ -170,6 +171,50 @@ public class NotificationService {
 		Period p = Period.between(birthday, today);
 		return p.getYears();
 	}
+	
+	public boolean sendExitCredentials(Child child, ChildExitCredentials cred) {
+
+		
+		String childName = child.getFirstName()+" " +child.getLastName();
+		String message = "Child Name " + childName + System.lineSeparator()+ 
+		"Credentials "+System.lineSeparator() +
+		"User Name"+child.getChildNo()+" "+System.lineSeparator()+
+		"Password: "+cred.getPassword()+
+		System.lineSeparator() +
+		System.lineSeparator() + 
+		 
+		"Thank you" 
+		+System.lineSeparator() + 
+				 "This is test message pls ignore";
+		if(null != cred.getEmail() && !cred.getEmail().isEmpty()) {
+			EmailData emailParams = new EmailData();
+			emailParams.setFromAddress(fromAddress);
+			emailParams.setSubject("Test");
+			emailParams.setMessage(message);
+			emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + " Exit credentials");
+			emailParams.setToAddress(cred.getEmail());
+			emailParams.setBccAdress("k.ramakrishna93@gmail.com, Srinivas.uppu@gmail.com, raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
+			
+			try {
+				emailService.sendHtmlMail(emailParams);
+				
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(null != cred.getPhoneNo() && !cred.getPhoneNo().isEmpty()) {
+			SMSDetails smsDetails = new SMSDetails();
+			smsDetails.setMessage(message);
+			smsDetails.setSender("RFIROR");
+			smsDetails.setMobileNo(cred.getPhoneNo()+",9000988856, 9553729672, 7396402348");
+			smsService.sendSms(smsDetails);
+			
+		}
+		return true;
+		
+	}
+
 	
 
 }

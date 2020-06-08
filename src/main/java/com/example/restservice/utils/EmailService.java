@@ -22,7 +22,7 @@ public class EmailService {
 		MimeMessage msg = emailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(msg, true);
 
-		helper.setTo(data.getToAddress());
+		//helper.setTo(data.getToAddress());
 		InternetAddress[] toAddresses = InternetAddress.parse(data.getToAddress());
 		InternetAddress[] bcc = InternetAddress.parse(data.getBccAdress());
 		helper.setTo(toAddresses);
