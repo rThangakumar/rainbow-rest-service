@@ -77,7 +77,7 @@ public class SMSService {
 	
 		e.printStackTrace();
 
-	  } catch (IOException e) {
+	  } catch (Exception e) {
 	
 		e.printStackTrace();
 	  }
