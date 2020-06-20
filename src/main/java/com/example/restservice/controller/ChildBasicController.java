@@ -191,6 +191,12 @@ public class ChildBasicController {
 		return ResponseEntity.ok(childrenInTheHome);
 	}
 	
+	@GetMapping("/childrenWithProfileStatus/{homeNo}")
+	public ResponseEntity<List<ChildEnhanced>> getChildListWithProflileStatusFlag(@PathVariable Integer homeNo){
+		List<ChildEnhanced> childrenInTheHome = childEnhancedRepository.getChildListWithProflileStatusFlag(homeNo);
+		return ResponseEntity.ok(childrenInTheHome);
+	}
+	
 	@PostMapping(path="/child/{orgId}")
 	public @Valid Child addChild(@Valid @RequestBody Child child, @PathVariable Integer orgId) {
 		Child savedChildDetails = childRepository.save(child);

@@ -32,3 +32,4 @@ build/
 /Scripts/
 /.dbeaver/
 /.gitignore
+/.apt_generated_tests/
