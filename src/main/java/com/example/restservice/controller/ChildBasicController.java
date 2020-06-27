@@ -9,52 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.restservice.FTPService;
 import com.example.restservice.NotificationService;
-import com.example.restservice.crud.Child;
-import com.example.restservice.crud.ChildEnhanced;
-import com.example.restservice.crud.ChildStatus;
-import com.example.restservice.crud.ChildStayType;
-import com.example.restservice.crud.CommitteeSuggestion;
-import com.example.restservice.crud.CommitteeSuggestion_staff;
-import com.example.restservice.crud.Community;
-import com.example.restservice.crud.EducationStatus;
-import com.example.restservice.crud.MotherTongue;
-import com.example.restservice.crud.ParentalStatus;
-import com.example.restservice.crud.ProfileDescription;
-import com.example.restservice.crud.ReasonForAdmission;
-import com.example.restservice.crud.ReferralSource;
-import com.example.restservice.crud.Religion;
-import com.example.restservice.crud.ScholarshipType;
-import com.example.restservice.crud.Staff;
-import com.example.restservice.repository.ChildEnhancedRepository;
-import com.example.restservice.repository.ChildRepository;
-import com.example.restservice.repository.ChildStatusRepository;
-import com.example.restservice.repository.ChildStayTypeRepository;
-import com.example.restservice.repository.CommitteeSuggestionRepository;
-import com.example.restservice.repository.CommunityRepository;
-import com.example.restservice.repository.EducationStatusRepository;
-import com.example.restservice.repository.MotherTongueRepository;
-import com.example.restservice.repository.ParentalStatusRepository;
-import com.example.restservice.repository.ProfileDescriptionRepository;
-import com.example.restservice.repository.ReasonForAdmissionRepository;
-import com.example.restservice.repository.ReferralSourceRepository;
-import com.example.restservice.repository.ReligionRepository;
-import com.example.restservice.repository.ScholarshipTypeRepository;
-import com.example.restservice.repository.StaffRepository;
+import com.example.restservice.crud.*;
+import com.example.restservice.repository.*;
+
+import lombok.extern.slf4j.Slf4j;
+
 
 @RestController
 @RequestMapping("/api/v1")
+@Slf4j
 public class ChildBasicController {
 
 	@Autowired
@@ -107,6 +76,9 @@ public class ChildBasicController {
 	
 	@Autowired
 	private ScholarshipTypeRepository scholarshipTypeRepository;
+	
+	@Autowired
+	private ChildEnhanceRepository updatedEnhancedRepo;
 	
 	@GetMapping("/scholarship-type")
 	@Cacheable("ScholarshipType")
@@ -192,8 +164,10 @@ public class ChildBasicController {
 	}
 	
 	@GetMapping("/childrenWithProfileStatus/{homeNo}")
-	public ResponseEntity<List<ChildEnhanced>> getChildListWithProflileStatusFlag(@PathVariable Integer homeNo){
-		List<ChildEnhanced> childrenInTheHome = childEnhancedRepository.getChildListWithProflileStatusFlag(homeNo);
+	public ResponseEntity<List<ChildListEnhanced>> getChildListWithProflileStatusFlag(@PathVariable Integer homeNo){
+		long currentTimeMillis = System.currentTimeMillis();
+		List<ChildListEnhanced> childrenInTheHome = updatedEnhancedRepo.getChildEnhancedList(homeNo);
+		log.info("New Enhanced Child List API Response API --> {} || Time taken:: {}" + childrenInTheHome.size() ,(System.currentTimeMillis() - currentTimeMillis));
 		return ResponseEntity.ok(childrenInTheHome);
 	}
 	
