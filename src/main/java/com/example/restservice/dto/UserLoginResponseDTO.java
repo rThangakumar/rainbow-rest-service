@@ -10,7 +10,8 @@ import lombok.Setter;
 public class UserLoginResponseDTO {
 	
 	private Boolean authStatus;
-	private Integer orgId; 
+	private Integer orgId;
+	private String homeCode;
 	private String comments;
 
 }

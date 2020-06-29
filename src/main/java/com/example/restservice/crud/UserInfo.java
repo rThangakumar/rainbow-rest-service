@@ -1,14 +1,16 @@
 package com.example.restservice.crud;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import com.example.restservice.crud.ChildHealth.ChildHealthBuilder;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,5 +37,10 @@ public class UserInfo {
 	private String password;
 	private Integer orgId;
 	private Integer orgLevelNo;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orgId", referencedColumnName = "RHNo", insertable = false, updatable = false)
+    private RainbowHome rainbowHome;
+	
 
 }
