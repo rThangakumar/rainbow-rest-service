@@ -66,6 +66,9 @@ public class ChildEducation {
     public String  sponsorship;
     public String  spnsorshipFor;
     
+    public String literacyStatus;
+    public String firstGenLearner;
+    
     
     
 	public Integer getChildNo() {

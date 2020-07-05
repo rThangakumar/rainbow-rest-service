@@ -21,6 +21,7 @@ import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildGeneralInfo;
 import com.example.restservice.crud.DifferentlyAbledGroup;
 import com.example.restservice.crud.Identification;
+import com.example.restservice.crud.LiteracyStatus;
 import com.example.restservice.crud.MarkType;
 import com.example.restservice.crud.Occupation;
 import com.example.restservice.crud.Staff;
@@ -28,6 +29,7 @@ import com.example.restservice.crud.StayReason;
 import com.example.restservice.repository.ChildRepository;
 import com.example.restservice.repository.DifferentlyAbledGroupRepository;
 import com.example.restservice.repository.IdentificationRepository;
+import com.example.restservice.repository.LiteracyStatusRepository;
 import com.example.restservice.repository.MarkTypeRepository;
 import com.example.restservice.repository.OccupationRepository;
 import com.example.restservice.repository.StayReasonRepository;
@@ -54,11 +56,21 @@ public class GeneralInfoController {
 	@Autowired
 	private ChildRepository childRepository;
 	
+	@Autowired
+	private LiteracyStatusRepository literacyStatusRepository;
+	
 	@GetMapping("/identifications")
 	public ResponseEntity<List<Identification>> getIdentifications(){
 		List<Identification> identificationList = identificationRepository.findAll();
 		return ResponseEntity.ok().body(identificationList);
 	}
+	
+	@GetMapping("/literacyStatus")
+	public ResponseEntity<List<LiteracyStatus>> getLiteracyStatus(){
+		List<LiteracyStatus> identificationList = literacyStatusRepository.findAll();
+		return ResponseEntity.ok().body(identificationList);
+	}
+	
 	
 	@GetMapping("/mark-types")
 	public ResponseEntity<List<MarkType>> getMarkTypes(){
