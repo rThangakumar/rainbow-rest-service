@@ -70,6 +70,11 @@ public class Child {
 	private String cWCRefNo;
 	
 	private Integer bloodGroup;
+	
+	private Integer aadharNumber;
+	private String abuseOnStreet;
+	private String noOfTimesLeavingHome;
+	
 
 	
 	public Child() {
@@ -351,6 +356,31 @@ public class Child {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+
+	public Integer getAadharNumber() {
+		return aadharNumber;
+	}
+
+	public void setAadharNumber(Integer aadharNumber) {
+		this.aadharNumber = aadharNumber;
+	}
+
+	public String getAbuseOnStreet() {
+		return abuseOnStreet;
+	}
+
+	public void setAbuseOnStreet(String abuseOnStreet) {
+		this.abuseOnStreet = abuseOnStreet;
+	}
+
+	public String getNoOfTimesLeavingHome() {
+		return noOfTimesLeavingHome;
+	}
+
+	public void setNoOfTimesLeavingHome(String noOfTimesLeavingHome) {
+		this.noOfTimesLeavingHome = noOfTimesLeavingHome;
+	}
+	
 	
 	
 }

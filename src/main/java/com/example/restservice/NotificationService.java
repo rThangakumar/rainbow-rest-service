@@ -10,9 +10,12 @@ import java.util.TimeZone;
 
 import javax.mail.MessagingException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.restservice.controller.ChildStatusController;
 import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildExitCredentials;
 import com.example.restservice.crud.RainbowHome;
@@ -40,7 +43,7 @@ public class NotificationService {
 	
 	private String fromAddress;
 	
-	
+	Logger LOG = LoggerFactory.getLogger(NotificationService.class);
 	
 	public boolean sendAddChildNotification(Child child, Integer orgId) {
 		int id = orgId;// replace this with the logged in user ord id
@@ -67,18 +70,14 @@ public class NotificationService {
             }
 		}
 		String childName = child.getFirstName()+" " +child.getLastName();
-		String message = "Hi Team<br/>" + System.lineSeparator()+ System.lineSeparator()
+		String message = "Hi Team <br/>" + System.lineSeparator()+ System.lineSeparator()
 		+"Child Name " + childName + 
-		" " + age + " Years old" + " admitted" + " on Date" + child.getAdmissionDate() + 
-		" in Code  based on <br/> " + System.lineSeparator() 
-		+ "level "+rhCodes + System.lineSeparator() +
-		"Type RH City "+city+ " for " + child.getReasonForAdmission()+"." + "<br/><br/>"+
-		System.lineSeparator() +
-		System.lineSeparator() + 
-		"Hearty Welcome <br/>"+childName + System.lineSeparator() + 
-		"Thank you <br/>" 
-		+System.lineSeparator() + 
-				 "This is test message pls ignore";
+		"" + age + " Years old" + " admitted" + " on " + child.getAdmissionDate() + 
+		" in "+rhCodes + ", <br/>" +
+		" "+city+ "." + "<br/><br/>"+
+		 
+		"Hearty Welcome "+childName + "<br/>" + 
+		"Thank you <br/>";
 		
 		EmailData emailParams = new EmailData();
 		emailParams.setFromAddress(fromAddress);
@@ -130,16 +129,11 @@ public class NotificationService {
 		String childName = child.getFirstName()+" " +child.getLastName();
 		String message = "Hi Team, <br/>" + System.lineSeparator()+ System.lineSeparator()
 		+"Child Name " + childName + 
-		" " + age + " Years old" + " admitted" + " on Date" + child.getAdmissionDate() + 
-		" in Code  based on <br/>" + System.lineSeparator() 
-		+ "level <br/>"+rhCodes + System.lineSeparator() +
-		"Type RH City "+city+ "leaving for reason, child wants to be with Parents/Grand parents/Guardian though the family condition not improved.<br/><br/>" + 
-		System.lineSeparator() +
-		System.lineSeparator() + 
-		 
-		"Thank you" 
-		+System.lineSeparator() + 
-				 "This is test message pls ignore";
+		" " + age + " Years old" + " admitted" + " on " + child.getAdmissionDate() + 
+		" in "+rhCodes + "<br/>"+
+		" "+city+ " leaving for reason, child wants to be with Parents/Grand parents/Guardian though the family condition not improved.<br/><br/>" + 
+		"<br/>" +	 
+		"Thank you"; 
 		
 		EmailData emailParams = new EmailData();
 		emailParams.setFromAddress(fromAddress);
@@ -176,16 +170,13 @@ public class NotificationService {
 
 		
 		String childName = child.getFirstName()+" " +child.getLastName();
-		String message = "Child Name " + childName + System.lineSeparator()+ 
+		String message = "Child Name " + childName + "<br/>"+ 
 		"Credentials "+System.lineSeparator() +
 		"User Name"+child.getChildNo()+" "+System.lineSeparator()+
 		"Password: "+cred.getPassword()+
-		System.lineSeparator() +
-		System.lineSeparator() + 
-		 
-		"Thank you" 
-		+System.lineSeparator() + 
-				 "This is test message pls ignore";
+		"</br>"+ 
+		"Thank you"; 
+		
 		if(null != cred.getEmail() && !cred.getEmail().isEmpty()) {
 			EmailData emailParams = new EmailData();
 			emailParams.setFromAddress(fromAddress);
@@ -201,6 +192,7 @@ public class NotificationService {
 			} catch (MessagingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
 			}
 		}
 		if(null != cred.getPhoneNo() && !cred.getPhoneNo().isEmpty()) {
