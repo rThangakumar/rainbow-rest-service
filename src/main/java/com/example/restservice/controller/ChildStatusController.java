@@ -100,7 +100,7 @@ public class ChildStatusController {
 				notificationService.sendUpdateChildExitingNotification(ch);
 				if(null !=email || null !=phNo) {
 					LOG.info("Generating credentials");
-					generateCredentials(child, email, phNo, future );
+					generateCredentials(ch, email, phNo, future );
 				}
 			}
 			
