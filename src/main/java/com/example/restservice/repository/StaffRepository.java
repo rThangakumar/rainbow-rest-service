@@ -14,6 +14,6 @@ public interface StaffRepository extends JpaRepository<Staff,Long> {
 	
 	List<Staff> findAll();
 
-	List<Staff> findByOrgID(Integer orgId);
+	List<Staff> findByOrgIDAndStaffStatus(Integer orgId, Integer staffStatus);
 
 }
