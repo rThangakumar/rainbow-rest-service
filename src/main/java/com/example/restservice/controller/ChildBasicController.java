@@ -80,10 +80,19 @@ public class ChildBasicController {
 	@Autowired
 	private ChildEnhanceRepository updatedEnhancedRepo;
 	
+	@Autowired
+	private DashboardRepository dashboardRepository;
+	
 	@GetMapping("/scholarship-type")
 	@Cacheable("ScholarshipType")
 	public ResponseEntity<List<ScholarshipType>> getAllScholarshipType() {
 		List<ScholarshipType> childStayType = scholarshipTypeRepository.findAll();
+		return ResponseEntity.ok().body(childStayType);
+	}
+	
+	@GetMapping("/dashboard/{homeNo}")
+	public ResponseEntity<List<Dashboard>> getDashBoardDetails(@PathVariable Integer homeNo) {
+		List<Dashboard> childStayType = dashboardRepository.getDashboardDetails(homeNo);
 		return ResponseEntity.ok().body(childStayType);
 	}
 	
@@ -145,7 +154,7 @@ public class ChildBasicController {
 	
 	@GetMapping("/home-staff-list/{orgId}")
 	public ResponseEntity<List<Staff>> getHomeStaffs(@PathVariable Integer orgId){
-		List<Staff> staffList = staffRepository.findByOrgID(orgId);
+		List<Staff> staffList = staffRepository.findByOrgIDAndStaffStatus(orgId, 1);
 		return ResponseEntity.ok().body(staffList);
 		
 	}
