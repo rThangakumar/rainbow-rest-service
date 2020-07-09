@@ -71,7 +71,7 @@ public class Child {
 	
 	private Integer bloodGroup;
 	
-	private Integer aadharNumber;
+	private Long aadharNumber;
 	private String abuseOnStreet;
 	private String noOfTimesLeavingHome;
 	
@@ -357,11 +357,11 @@ public class Child {
 		this.picture = picture;
 	}
 
-	public Integer getAadharNumber() {
+	public Long getAadharNumber() {
 		return aadharNumber;
 	}
 
-	public void setAadharNumber(Integer aadharNumber) {
+	public void setAadharNumber(Long aadharNumber) {
 		this.aadharNumber = aadharNumber;
 	}
 
