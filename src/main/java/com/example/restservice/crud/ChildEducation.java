@@ -37,7 +37,7 @@ public class ChildEducation {
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	public Integer educationNo;
-	public Integer childNo;
+	public Long childNo;
 	
 	public String schoolName;
 	public Integer schooltype;
@@ -69,12 +69,10 @@ public class ChildEducation {
     public String literacyStatus;
     public String firstGenLearner;
     
-    
-    
-	public Integer getChildNo() {
+	public Long getChildNo() {
 		return childNo;
 	}
-	public void setChildNo(Integer childNo) {
+	public void setChildNo(Long childNo) {
 		this.childNo = childNo;
 	}
 	public Integer getPreviousClassStudied() {

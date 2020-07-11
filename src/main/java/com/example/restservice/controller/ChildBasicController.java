@@ -83,6 +83,9 @@ public class ChildBasicController {
 	@Autowired
 	private DashboardRepository dashboardRepository;
 	
+	@Autowired
+	private ChildEducationRepository childEducationRepository;
+	
 	@GetMapping("/scholarship-type")
 	@Cacheable("ScholarshipType")
 	public ResponseEntity<List<ScholarshipType>> getAllScholarshipType() {
@@ -183,6 +186,24 @@ public class ChildBasicController {
 	@PostMapping(path="/child")
 	public @Valid Child addChild(@Valid @RequestBody Child child) {
 		Child savedChildDetails = childRepository.save(child);
+		ChildEducation childEducation = new ChildEducation();
+		childEducation.setChildNo(child.getChildNo());
+		childEducation.setStatus(child.getEducationStatus());
+		
+		if (null != child.getEducationStatus() && child.getEducationStatus() == 1) {
+			childEducation.setAddress("Never Enrolled");
+			//childEducation.setBridgeCourse("Never Enrolled");
+			childEducation.setClassDetails("Never Enrolled");
+			//childEducation.setDropoutReason("Never Enrolled");
+			childEducation.setFirstGenLearner("Never Enrolled");
+			childEducation.setLiteracyStatus("Never Enrolled");
+			childEducation.setSchoolName("Never Enrolled");
+			//childEducation.setSpnsorshipFor("Never Enrolled");
+			childEducation.setStayType("Never Enrolled");
+			childEducationRepository.save(childEducation);
+		} else {
+			childEducationRepository.save(childEducation);
+		}
 		notificationService.sendAddChildNotification(savedChildDetails, child.getRainbowHomeNumber());
 		return savedChildDetails;
 
