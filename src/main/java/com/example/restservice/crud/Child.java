@@ -13,6 +13,8 @@ import javax.persistence.Table;
 @Table(name = "ChildBasic")
 public class Child {
 
+	//Name, DOB, Mother Tongue, Admission date, Religion, Home code
+	//firstNameAndlastNameAnddateOfBirthAndmotherTongueAndadmissionDateAndReligionAndrainbowHomeNumber
 	private Long childNo;
 	private String childStringId;
 	private Integer rainbowHomeNumber;

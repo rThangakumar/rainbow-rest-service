@@ -193,16 +193,22 @@ public class ChildBasicController {
 	
 	@PostMapping(path="/child")
 	public @Valid Child addChild(@Valid @RequestBody Child child) {
+		if(isChildAlreadyExists(child)) {
+			throw  new IllegalArgumentException("Duplicate profile");
+		}
 		Child savedChildDetails = childRepository.save(child);
 		notificationService.sendAddChildNotification(savedChildDetails, child.getRainbowHomeNumber());
 		return savedChildDetails;
+		
 
 	}
 	
 	@PostMapping(value = "/child-with-image/{orgId}")
 	public @Valid Child addChild(@RequestParam("file") MultipartFile file, @RequestParam("child") Child child, @PathVariable Integer orgId) {
-		String fileName = "childpic"+child.getChildNo()+".png";
-		child.setPicture(fileName);
+		if(null == child.getPicture()) {
+			String fileName = "childpic"+child.getChildNo()+".png";
+			child.setPicture(fileName);
+		}
 		Child savedChildDetails = childRepository.save(child);
 		FTPService.uploadFile(savedChildDetails.getChildNo(), file);
 		//notificationService.sendAddChildNotification(savedChildDetails, orgId);
@@ -283,6 +289,17 @@ public class ChildBasicController {
 		}
 		
 		return committeeSuggestionRepository.save(committeeSuggestion);
+	}
+	
+	private boolean isChildAlreadyExists(Child child) {
+		
+		List<Child> childList = childRepository.findByFirstNameAndLastNameAndDateOfBirthAndMotherTongueAndAdmissionDateAndReligionAndRainbowHomeNumber(child.getFirstName(), 
+				child.getLastName(), child.getDateOfBirth(), child.getMotherTongue(), child.getAdmissionDate(), child.getReligion(), child.getRainbowHomeNumber());
+		if(!childList.isEmpty()) {
+			log.info("Child already exists");
+			return true;
+		}
+		return false;
 	}
 	
 }

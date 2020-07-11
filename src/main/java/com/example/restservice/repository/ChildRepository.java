@@ -1,5 +1,6 @@
 package com.example.restservice.repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,9 @@ import com.example.restservice.crud.ChildGeneralInfo;
 public interface ChildRepository extends JpaRepository<Child, Long> {
 		
 	List<Child> findByRainbowHomeNumber(Integer rainbowHomeNumber);
+	List<Child> findByFirstNameAndLastNameAndDateOfBirthAndMotherTongueAndAdmissionDateAndReligionAndRainbowHomeNumber(
+			String firstName, String lastName, Date dateOfBirth, Integer motherTongue, Date admissionDate, Integer religion, Integer RainbowHomeNumber);
+	
 	
 	Optional<Child> findById(Long childNo);
 	
@@ -34,4 +38,5 @@ public interface ChildRepository extends JpaRepository<Child, Long> {
 	@Modifying
 	@Query("update Child child set child.bloodGroup = ?1  WHERE child.childNo = ?2")	
 	Integer saveChildBloodGroup(Integer bloodGroup, Long childNo);
+	//	Name, DOB, Mother Tongue, Admission date, Religion, Home code
 }
