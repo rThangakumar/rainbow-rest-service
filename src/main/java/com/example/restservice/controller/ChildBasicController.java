@@ -1,5 +1,7 @@
 package com.example.restservice.controller;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -193,15 +195,16 @@ public class ChildBasicController {
 		childEducation.setChildNo(child.getChildNo());
 		childEducation.setStatus(child.getEducationStatus());
 		
+		Calendar today = Calendar.getInstance();
+		childEducation.setCreated_on(today.getTime());
+		childEducation.setModified_on(today.getTime());
+		
 		if (null != child.getEducationStatus() && child.getEducationStatus() == 1) {
 			childEducation.setAddress("Never Enrolled");
-			//childEducation.setBridgeCourse("Never Enrolled");
 			childEducation.setClassDetails("Never Enrolled");
-			//childEducation.setDropoutReason("Never Enrolled");
 			childEducation.setFirstGenLearner("Never Enrolled");
 			childEducation.setLiteracyStatus("Never Enrolled");
 			childEducation.setSchoolName("Never Enrolled");
-			//childEducation.setSpnsorshipFor("Never Enrolled");
 			childEducation.setStayType("Never Enrolled");
 			childEducationRepository.save(childEducation);
 		} else {
