@@ -43,4 +43,7 @@ public class ExamResults {
     public String result;
     public float percentage;
     public String examDescription;
+    
+    @Column(name="class")
+    public Integer studyingClass;
 }
