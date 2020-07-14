@@ -21,12 +21,10 @@ import com.example.restservice.crud.Child;
 import com.example.restservice.crud.ChildClass;
 import com.example.restservice.crud.ChildEducation;
 import com.example.restservice.crud.ExamResults;
+import com.example.restservice.crud.SchoolName;
 import com.example.restservice.crud.SchoolType;
-import com.example.restservice.repository.ChildClassRepository;
-import com.example.restservice.repository.ChildEducationRepository;
-import com.example.restservice.repository.ChildRepository;
-import com.example.restservice.repository.ExamResultsRepository;
-import com.example.restservice.repository.SchoolTypeRepository;
+import com.example.restservice.repository.*;
+
 
 @RestController
 @RequestMapping("/api/v1")
@@ -46,7 +44,19 @@ public class ChildEducationController {
 	
 	@Autowired
 	private ChildRepository childRepository;
+	
+	@Autowired
+	private SchoolNameRepository schoolName;
+	
+	@GetMapping("/unique-schoolName/{rainbowHomeNumber}")
+	public ResponseEntity<List<SchoolName>> getUniqueSchoolName(@PathVariable Integer rainbowHomeNumber) {
 		
+		List<SchoolName> schoolList =  schoolName.getUniqueSchoolName(rainbowHomeNumber);
+		return ResponseEntity.ok().body(schoolList);
+		
+	}
+	
+	
 	@GetMapping("/studying-class")
 	@Cacheable("StudyingClass")
 	public ResponseEntity<List<ChildClass>> getStudyingClass() {
@@ -76,7 +86,7 @@ public class ChildEducationController {
 			dropoutReason = childList.get().getDropoutReason();
 		}
 		
-		Optional<List<ChildEducation>> childEducation = childEducationRepository.findByChildNo(childNo);
+		Optional<List<ChildEducation>> childEducation = childEducationRepository.findByChildNo(Long.valueOf(childNo));
 		if(childEducation.isPresent()) {
 			for(ChildEducation ce : childEducation.get()) {
 				ce.setPreviousClassStudied(previousClass);
