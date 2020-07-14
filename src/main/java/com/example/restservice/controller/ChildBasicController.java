@@ -83,6 +83,9 @@ public class ChildBasicController {
 	@Autowired
 	private DashboardRepository dashboardRepository;
 	
+	@Autowired
+	private ChildEducationRepository childEducationRepository;
+	
 	@GetMapping("/scholarship-type")
 	@Cacheable("ScholarshipType")
 	public ResponseEntity<List<ScholarshipType>> getAllScholarshipType() {
@@ -182,16 +185,40 @@ public class ChildBasicController {
 	
 	@PostMapping(path="/child")
 	public @Valid Child addChild(@Valid @RequestBody Child child) {
+		if(isChildAlreadyExists(child)) {
+			throw  new IllegalArgumentException("Duplicate profile");
+		}
 		Child savedChildDetails = childRepository.save(child);
+		ChildEducation childEducation = new ChildEducation();
+		childEducation.setChildNo(child.getChildNo());
+		childEducation.setStatus(child.getEducationStatus());
+		
+		if (null != child.getEducationStatus() && child.getEducationStatus() == 1) {
+			childEducation.setAddress("Never Enrolled");
+			//childEducation.setBridgeCourse("Never Enrolled");
+			childEducation.setClassDetails("Never Enrolled");
+			//childEducation.setDropoutReason("Never Enrolled");
+			childEducation.setFirstGenLearner("Never Enrolled");
+			childEducation.setLiteracyStatus("Never Enrolled");
+			childEducation.setSchoolName("Never Enrolled");
+			//childEducation.setSpnsorshipFor("Never Enrolled");
+			childEducation.setStayType("Never Enrolled");
+			childEducationRepository.save(childEducation);
+		} else {
+			childEducationRepository.save(childEducation);
+		}
 		notificationService.sendAddChildNotification(savedChildDetails, child.getRainbowHomeNumber());
 		return savedChildDetails;
+		
 
 	}
 	
 	@PostMapping(value = "/child-with-image/{orgId}")
 	public @Valid Child addChild(@RequestParam("file") MultipartFile file, @RequestParam("child") Child child, @PathVariable Integer orgId) {
-		String fileName = "childpic"+child.getChildNo()+".png";
-		child.setPicture(fileName);
+		if(null == child.getPicture()) {
+			String fileName = "childpic"+child.getChildNo()+".png";
+			child.setPicture(fileName);
+		}
 		Child savedChildDetails = childRepository.save(child);
 		FTPService.uploadFile(savedChildDetails.getChildNo(), file);
 		//notificationService.sendAddChildNotification(savedChildDetails, orgId);
@@ -272,6 +299,17 @@ public class ChildBasicController {
 		}
 		
 		return committeeSuggestionRepository.save(committeeSuggestion);
+	}
+	
+	private boolean isChildAlreadyExists(Child child) {
+		
+		List<Child> childList = childRepository.findByFirstNameAndLastNameAndDateOfBirthAndMotherTongueAndAdmissionDateAndReligionAndRainbowHomeNumber(child.getFirstName(), 
+				child.getLastName(), child.getDateOfBirth(), child.getMotherTongue(), child.getAdmissionDate(), child.getReligion(), child.getRainbowHomeNumber());
+		if(!childList.isEmpty()) {
+			log.info("Child already exists");
+			return true;
+		}
+		return false;
 	}
 	
 }

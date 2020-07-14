@@ -85,7 +85,7 @@ public class NotificationService {
 		emailParams.setMessage(message);
 		emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + "(" + age + ")yrs admitted  in " + rhCodes);
 		emailParams.setToAddress(toEmailIds);
-		emailParams.setBccAdress("k.ramakrishna93@gmail.com, Srinivas.uppu@gmail.com, raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
+		emailParams.setBccAdress("raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
 		
 		try {
 			emailService.sendHtmlMail(emailParams);
@@ -97,7 +97,7 @@ public class NotificationService {
 		SMSDetails smsDetails = new SMSDetails();
 		smsDetails.setMessage(message);
 		smsDetails.setSender("RFIROR");
-		smsDetails.setMobileNo(mobildNos+"9000988856, 7396402348");
+		smsDetails.setMobileNo(mobildNos);
 		smsService.sendSms(smsDetails);
 		return true;
 	}
@@ -141,7 +141,7 @@ public class NotificationService {
 		emailParams.setMessage(message);
 		emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + "(" + age + ")yrs status update " + rhCodes);
 		emailParams.setToAddress(toEmailIds);
-		emailParams.setBccAdress("k.ramakrishna93@gmail.com, Srinivas.uppu@gmail.com, raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
+		emailParams.setBccAdress("raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
 		
 		try {
 			emailService.sendHtmlMail(emailParams);
@@ -153,7 +153,7 @@ public class NotificationService {
 		SMSDetails smsDetails = new SMSDetails();
 		smsDetails.setMessage(message);
 		smsDetails.setSender("RFIROR");
-		smsDetails.setMobileNo(mobildNos+",9000988856, 7396402348");
+		smsDetails.setMobileNo(mobildNos);
 		smsService.sendSms(smsDetails);
 		return true;
 		
@@ -184,7 +184,7 @@ public class NotificationService {
 			emailParams.setMessage(message);
 			emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + " Exit credentials");
 			emailParams.setToAddress(cred.getEmail());
-			emailParams.setBccAdress("k.ramakrishna93@gmail.com, Srinivas.uppu@gmail.com, raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
+			emailParams.setBccAdress("raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
 			
 			try {
 				emailService.sendHtmlMail(emailParams);
@@ -199,7 +199,7 @@ public class NotificationService {
 			SMSDetails smsDetails = new SMSDetails();
 			smsDetails.setMessage(message);
 			smsDetails.setSender("RFIROR");
-			smsDetails.setMobileNo(cred.getPhoneNo()+",9000988856, 9553729672, 7396402348");
+			smsDetails.setMobileNo(cred.getPhoneNo());
 			smsService.sendSms(smsDetails);
 			
 		}

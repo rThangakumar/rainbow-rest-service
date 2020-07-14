@@ -23,7 +23,7 @@ import com.example.restservice.crud.ChildEducation;
 import com.example.restservice.crud.ExamResults;
 import com.example.restservice.crud.SchoolType;
 import com.example.restservice.repository.ChildClassRepository;
-import com.example.restservice.repository.ChildEductionRepository;
+import com.example.restservice.repository.ChildEducationRepository;
 import com.example.restservice.repository.ChildRepository;
 import com.example.restservice.repository.ExamResultsRepository;
 import com.example.restservice.repository.SchoolTypeRepository;
@@ -39,7 +39,7 @@ public class ChildEducationController {
 	private SchoolTypeRepository schoolTypeRepository;
 	
 	@Autowired
-	private ChildEductionRepository childEductionRepository;
+	private ChildEducationRepository childEducationRepository;
 	
 	@Autowired
 	private ExamResultsRepository examResultsRepository;
@@ -61,7 +61,7 @@ public class ChildEducationController {
 	
 	@PostMapping(path="/child-education", consumes = "application/json", produces = "application/json")
 	public @Valid ChildEducation addChildEducation(@Valid @RequestBody ChildEducation childEducation) {
-		return childEductionRepository.save(childEducation);
+		return childEducationRepository.save(childEducation);
 	}
 	
 	@GetMapping(path="/child-education/{childNo}", consumes = "application/json", produces = "application/json")
@@ -76,7 +76,7 @@ public class ChildEducationController {
 			dropoutReason = childList.get().getDropoutReason();
 		}
 		
-		Optional<List<ChildEducation>> childEducation = childEductionRepository.findByChildNo(childNo);
+		Optional<List<ChildEducation>> childEducation = childEducationRepository.findByChildNo(childNo);
 		if(childEducation.isPresent()) {
 			for(ChildEducation ce : childEducation.get()) {
 				ce.setPreviousClassStudied(previousClass);
@@ -100,7 +100,7 @@ public class ChildEducationController {
 			System.out.println("Saved ChildBasic successfully");
 		}
 		
-		return childEductionRepository.save(childEducation);
+		return childEducationRepository.save(childEducation);
 	}
 	
 	@PostMapping(path="/exam-results", consumes = "application/json", produces = "application/json")
