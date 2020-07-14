@@ -10,6 +10,6 @@ import com.example.restservice.crud.ChildEducation;
 
 public interface ChildEducationRepository extends JpaRepository<ChildEducation, Integer> {
 
-	Optional<List<ChildEducation>> findByChildNo(Integer childNo);
+	Optional<List<ChildEducation>> findByChildNo(Long childNo);
 
 }
