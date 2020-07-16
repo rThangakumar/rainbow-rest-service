@@ -16,7 +16,11 @@ import lombok.Setter;
 @NamedNativeQuery(name = "SchoolName.getUniqueSchoolName", resultClass = SchoolName.class, query = "select d.schoolname , ROW_NUMBER() over (order by d.schoolname) as rownum from (\n"
 		+ "   select distinct(e.schoolname) as schoolname from (\n"
 		+ "   select  a.schoolname, b.RHNo  from dbo.childeducation a\n"
-		+ " join dbo.childbasic b on a.childno = b.childno\n" + " where  b.RHNo = :rainbowHomeNumber \n" + " ) as e\n"
+		+ " join dbo.childbasic b on a.childno = b.childno\n" + " where "
+				+ " (b.RHNo = :rainbowHomeNumber "
+				+ "and a.schoolname is not null "
+				+ "and len(a.schoolname) > 0 )"
+				+ "  \n" + " ) as e\n"
 		+ ") as d"
 
 )
