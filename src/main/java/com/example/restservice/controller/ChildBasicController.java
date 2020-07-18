@@ -206,6 +206,13 @@ public class ChildBasicController {
 			childEducation.setLiteracyStatus("Never Enrolled");
 			childEducation.setSchoolName("Never Enrolled");
 			childEducation.setStayType("Never Enrolled");
+			childEducation.setSpnsorshipFor("Never Enrolled");
+			childEducation.setSponsorship("NvrEnrlled");
+			childEducation.setBridgeCourse("NvrEnrlled");
+			childEducation.setSchooltype(0);
+			childEducation.setStudyingclass(0);
+			childEducation.setMedium(0);
+			childEducation.setClassMapID(0);
 			childEducationRepository.save(childEducation);
 		} else {
 			childEducationRepository.save(childEducation);
