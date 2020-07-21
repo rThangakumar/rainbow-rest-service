@@ -32,6 +32,10 @@ public class HealthChecklist {
 	private Boolean gynecologyCheckupDone;
 	private Date gynecologyCheckupDate;
 	
+	private String generalCheckUpName;
+	private Date generalCheckUpDate;
+	private Date tBTestDate;
+	private Date hIVTestDate;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="HealthChecklistNo")

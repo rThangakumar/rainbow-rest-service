@@ -11,29 +11,11 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.restservice.crud.BloodGroup;
-import com.example.restservice.crud.Child;
-import com.example.restservice.crud.ChildHealth;
-import com.example.restservice.crud.ChildMedicalTreatment;
-import com.example.restservice.crud.GeneralHealth;
-import com.example.restservice.crud.HealthChecklist;
-import com.example.restservice.crud.HealthGrowthForm;
+import org.springframework.web.bind.annotation.*;
+import com.example.restservice.crud.*;
 import com.example.restservice.dto.ChildHealthDTO;
-import com.example.restservice.repository.BloodGroupRepository;
-import com.example.restservice.repository.ChildHealthRepository;
-import com.example.restservice.repository.ChildMedicalTreatmentRepository;
-import com.example.restservice.repository.ChildRepository;
-import com.example.restservice.repository.GeneralHealthRepository;
-import com.example.restservice.repository.HealthChecklistRepository;
-import com.example.restservice.repository.HealthGrowthFormRepository;
+import com.example.restservice.repository.*;
+
 
 @RestController
 @RequestMapping("/api/v1")
@@ -59,6 +41,44 @@ public class ChildHealthController {
 	
 	@Autowired
 	private BloodGroupRepository bloodGroupRepo;
+	
+	@Autowired
+	HealthCheckUpRepository healthCheckUpRepository;
+	
+	@Autowired
+	private HealthCampNameRepository healthCampNameRepository;
+	
+	@Autowired
+	private HealthHospitalNameRepository healthHospitalNameRepository;
+	
+	@Autowired
+	private HealthMultiFormCampsRepository healthMultiFormCampsRepository;
+	
+	
+	
+	
+	@GetMapping("/health-camp-hospitalName/{rainBowHomeNumber}")
+	public ResponseEntity<List<HealthHospitalName>> getUniqueHospitalName(@PathVariable Integer rainBowHomeNumber) {
+		List<HealthHospitalName> generalHealthList = healthHospitalNameRepository.getUniqueHospitalName(rainBowHomeNumber);
+		return ResponseEntity.ok().body(generalHealthList);
+	}
+	
+	@GetMapping("/health-campName/{rainBowHomeNumber}")
+	public ResponseEntity<List<HealthCampName>> getUniqueCampName(@PathVariable Integer rainBowHomeNumber) {
+		List<HealthCampName> generalHealthList = healthCampNameRepository.getUniqueCampName(rainBowHomeNumber);
+		return ResponseEntity.ok().body(generalHealthList);
+	}
+	
+	@PostMapping(path="/health-campDetails")
+	public @Valid HealthMultiFormCamps addHeathCampDetais(@Valid @RequestBody HealthMultiFormCamps healthChecklist) {
+		return healthMultiFormCampsRepository.save(healthChecklist);
+	}
+	
+	@GetMapping("/health-checkup")
+	public ResponseEntity<List<HealthCheckupList>> getHealthCheckup() {
+		List<HealthCheckupList> generalHealthList = healthCheckUpRepository.findAll();
+		return ResponseEntity.ok().body(generalHealthList);
+	}
 	
 	@GetMapping("/general-health")
 	public ResponseEntity<List<GeneralHealth>> getCountry() {
