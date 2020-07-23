@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,12 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.restservice.dto.ImageDTO;
+import com.example.restservice.repository.ChildEnhanceRepository;
+import com.example.restservice.repository.ChildEnhancedRepository;
 import com.example.restservice.utils.FtpUploader;
 import com.example.restservice.utils.FtpDownloader;
 
 @RestController
 @RequestMapping("/api/v1")
 public class ChildImageController {
+	
+	@Autowired
+	private ChildEnhanceRepository childEnhanceRepository;
 	
 	@Value("${ftp.host}")
 	private String host;
@@ -34,14 +40,16 @@ public class ChildImageController {
 	@Value("${ftp.password}")
 	private String password;
 
-	@PutMapping("/upload-image/{childNo}")
-	public String uploadFile(@PathVariable Integer childNo, @RequestPart("file") MultipartFile file) {
+	@PutMapping("/upload-image/{childNo}/{path}/{fileName}")
+	public String uploadFile(@PathVariable Integer childNo, @PathVariable String path, @PathVariable String fileName, @RequestPart("file") MultipartFile file) {
 		
 		try {
 			FtpUploader ftpUploader = new FtpUploader(host, userName, password);
-			String fileName = "childpic"+childNo+".png";
-			String path = "/Images/";
-			ftpUploader.uploadFile(file, fileName, path);
+			String effectivePath = "/"+path+"/";
+			ftpUploader.uploadFile(file, fileName, effectivePath);
+			
+			childEnhanceRepository.updatePicture(fileName, childNo);
+			
 		} catch (Exception e) {
 			return "failed";
 		}
