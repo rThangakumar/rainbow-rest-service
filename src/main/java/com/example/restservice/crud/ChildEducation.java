@@ -55,6 +55,7 @@ public class ChildEducation {
 	public Date created_on;
 	@Column(name="modified_by")
 	public Integer  modified_by;
+	@Column(name="modified_on")
 	public Date modified_on;
 	public Integer status;
 	public Date date_from;
