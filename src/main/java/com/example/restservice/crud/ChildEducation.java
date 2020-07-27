@@ -49,10 +49,13 @@ public class ChildEducation {
 	
 	
 	public String address;
+	@Column(name="created_by")
 	public Integer created_by;
+	@Column(name="created_on")
 	public Date created_on;
-	
+	@Column(name="modified_by")
 	public Integer  modified_by;
+	@Column(name="modified_on")
 	public Date modified_on;
 	public Integer status;
 	public Date date_from;
