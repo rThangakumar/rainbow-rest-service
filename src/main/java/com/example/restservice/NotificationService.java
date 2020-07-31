@@ -1,5 +1,7 @@
 package com.example.restservice;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -70,20 +72,26 @@ public class NotificationService {
             }
 		}
 		String childName = child.getFirstName()+" " +child.getLastName();
+		rhCodes = getRhCode(child, rhCodes);
+		DateFormat simpleDateFormat = new SimpleDateFormat("E MMM dd, yyyy");
+	    String admissionDateStr = simpleDateFormat.format(child.getAdmissionDate());
+
 		String message = "Hi Team <br/>" + System.lineSeparator()+ System.lineSeparator()
 		+"Child Name " + childName + 
-		"" + age + " Years old" + " admitted" + " on " + child.getAdmissionDate() + 
-		" in "+rhCodes + ", <br/>" +
-		" "+city+ "." + "<br/><br/>"+
+		"" + age + " Years old" + " admitted" + " on " + admissionDateStr + 
+		" in "+rhCodes + "."+
+		"<br/><br/>"+
 		 
 		"Hearty Welcome "+childName + "<br/>" + 
-		"Thank you <br/>";
+		"Thank you "+"<br/>"+
+		"Rainbow Homes "+"<br/>" +
+		"Program Rainbow Foundation India";
 		
 		EmailData emailParams = new EmailData();
 		emailParams.setFromAddress(fromAddress);
 		emailParams.setSubject("Test");
 		emailParams.setMessage(message);
-		emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + "(" + age + ")yrs admitted  in " + rhCodes);
+		emailParams.setSubject(childName + " (" + age + ")yrs admitted  in " + rhCodes);
 		emailParams.setToAddress(toEmailIds);
 		emailParams.setBccAdress("raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
 		
@@ -100,6 +108,17 @@ public class NotificationService {
 		smsDetails.setMobileNo(mobildNos);
 		smsService.sendSms(smsDetails);
 		return true;
+	}
+
+	private String getRhCode(Child child, String rhCodes) {
+		//1- Girl
+		//2 -> Boy
+		if(1 == child.getGender()) {
+			rhCodes =  rhCodes.replaceFirst("SG ", "RH ");
+		} else if(2 == child.getGender()) {
+			rhCodes =  rhCodes.replaceFirst("RH ", "SG ");
+		}
+		return rhCodes;
 	}
 	
 	public boolean sendUpdateChildExitingNotification(Child child) {
@@ -127,19 +146,23 @@ public class NotificationService {
             }
 		}
 		String childName = child.getFirstName()+" " +child.getLastName();
-		String message = "Hi Team, <br/>" + System.lineSeparator()+ System.lineSeparator()
-		+"Child Name " + childName + 
-		" " + age + " Years old" + " admitted" + " on " + child.getAdmissionDate() + 
-		" in "+rhCodes + "<br/>"+
-		" "+city+ " leaving for reason, child wants to be with Parents/Grand parents/Guardian though the family condition not improved.<br/><br/>" + 
+		Date date = new Date();
+		SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+		String today = DateFor.format(date);
+		String message = "Hi Team, <br/>" + 
+		childName +" " + age + " Years old" + " Exited" + " on " + today + 
+		" in "+rhCodes + " for Parents are able to take care of child."+"<br/>"+
+		 
 		"<br/>" +	 
-		"Thank you"; 
+		"Thank you "+"<br/>"+
+		"Rainbow Homes "+"<br/>" +
+		"Program Rainbow Foundation India"; 
 		
 		EmailData emailParams = new EmailData();
 		emailParams.setFromAddress(fromAddress);
-		emailParams.setSubject("Test");
 		emailParams.setMessage(message);
-		emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + "(" + age + ")yrs status update " + rhCodes);
+		//Rajni Priyanka (16) yrs Exit in NDB RH, DELHI
+		emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + " (" + age + ") yrs Exit in " + rhCodes);
 		emailParams.setToAddress(toEmailIds);
 		emailParams.setBccAdress("raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
 		
@@ -170,19 +193,25 @@ public class NotificationService {
 
 		
 		String childName = child.getFirstName()+" " +child.getLastName();
-		String message = "Child Name " + childName + "<br/>"+ 
-		"Credentials "+System.lineSeparator() +
-		"User Name"+child.getChildNo()+" "+System.lineSeparator()+
-		"Password: "+cred.getPassword()+
-		"</br>"+ 
-		"Thank you"; 
+		String message = "Hi " + childName + "<br/>"+ 
+		"We have created user's credentials for you to access your profile and update your status in time to time which helps us to coordinate and support you. "
+		+ "<br/>"+ "<br/>"+
+				
+		"URL: app.rainbowhome.in"+ "<br/>"+
+		"User Name: Same Child Id - "+child.getChildNo() +"<br/>"+
+		"Password: "+cred.getPassword()+ "<br/>"+ "<br/>"+
+		"Let's get connected,All the very best!!!"+ "<br/>"+
+		"By"+ "<br/>"+
+		"Rainbow Homes Program"+ "<br/>"+
+		"Rainbow Foundation India"; 
+
+		; 
 		
 		if(null != cred.getEmail() && !cred.getEmail().isEmpty()) {
 			EmailData emailParams = new EmailData();
 			emailParams.setFromAddress(fromAddress);
-			emailParams.setSubject("Test");
 			emailParams.setMessage(message);
-			emailParams.setSubject(child.getFirstName() + " " + child.getLastName() + " Exit credentials");
+			emailParams.setSubject("User credentials for "+childName);
 			emailParams.setToAddress(cred.getEmail());
 			emailParams.setBccAdress("raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
 			
@@ -192,6 +221,7 @@ public class NotificationService {
 			} catch (MessagingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				LOG.error("Error in sending exit credentials",e);
 				
 			}
 		}
