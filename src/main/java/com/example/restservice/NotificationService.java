@@ -82,16 +82,16 @@ public class NotificationService {
 		" in "+rhCodes + "."+
 		"<br/><br/>"+
 		 
-		"Hearty Welcome "+childName + "<br/>" + 
+		"Hearty Welcome "+childName + "<br/><br/>" + 
 		"Thank you "+"<br/>"+
-		"Rainbow Homes "+"<br/>" +
-		"Program Rainbow Foundation India";
+		"Rainbow Homes Program"+ "<br/>"+
+		"Rainbow Foundation India";
 		
 		EmailData emailParams = new EmailData();
 		emailParams.setFromAddress(fromAddress);
 		emailParams.setSubject("Test");
 		emailParams.setMessage(message);
-		emailParams.setSubject(childName + " (" + age + ")yrs admitted  in " + rhCodes);
+		emailParams.setSubject(childName + " (" + age + ") yrs admitted  in " + rhCodes);
 		emailParams.setToAddress(toEmailIds);
 		emailParams.setBccAdress("raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
 		
@@ -114,9 +114,9 @@ public class NotificationService {
 		//1- Girl
 		//2 -> Boy
 		if(1 == child.getGender()) {
-			rhCodes =  rhCodes.replaceFirst("SG ", "RH ");
+			rhCodes =  rhCodes.replaceFirst("SG", "RH ");
 		} else if(2 == child.getGender()) {
-			rhCodes =  rhCodes.replaceFirst("RH ", "SG ");
+			rhCodes =  rhCodes.replaceFirst("RH", "SG ");
 		}
 		return rhCodes;
 	}
@@ -136,6 +136,7 @@ public class NotificationService {
 			city = rhHomeList.get().getCity();
 			name = rhHomeList.get().getRhName();
 		}
+		rhCodes = getRhCode(child, rhCodes);
 		int age = calculateAge(child.getDateOfBirth());
 		if( (child.getChildNo() == 0 && rhTypes == "1")) {
 			if (toEmailIds == "")
@@ -149,14 +150,14 @@ public class NotificationService {
 		Date date = new Date();
 		SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
 		String today = DateFor.format(date);
-		String message = "Hi Team, <br/>" + 
-		childName +" " + age + " Years old" + " Exited" + " on " + today + 
+		String message = "Hi Team, <br/> <br/>" + 
+		childName +"  " + age + "  Years old" + " Exited" + " on " + today + 
 		" in "+rhCodes + " for Parents are able to take care of child."+"<br/>"+
 		 
 		"<br/>" +	 
-		"Thank you "+"<br/>"+
-		"Rainbow Homes "+"<br/>" +
-		"Program Rainbow Foundation India"; 
+		"Thank you"+"<br/>"+
+		"Rainbow Homes Program"+
+		"Rainbow Foundation India"; 
 		
 		EmailData emailParams = new EmailData();
 		emailParams.setFromAddress(fromAddress);
@@ -193,14 +194,14 @@ public class NotificationService {
 
 		
 		String childName = child.getFirstName()+" " +child.getLastName();
-		String message = "Hi " + childName + "<br/>"+ 
+		String message = "Hi " + childName + "<br/><br/>"+ 
 		"We have created user's credentials for you to access your profile and update your status in time to time which helps us to coordinate and support you. "
 		+ "<br/>"+ "<br/>"+
 				
 		"URL: app.rainbowhome.in"+ "<br/>"+
-		"User Name: Same Child Id - "+child.getChildNo() +"<br/>"+
+		"User Name: "+child.getChildStringId() +"<br/>"+
 		"Password: "+cred.getPassword()+ "<br/>"+ "<br/>"+
-		"Let's get connected,All the very best!!!"+ "<br/>"+
+		"Let's get connected,All the very best!!!"+ "<br/><br/>"+
 		"By"+ "<br/>"+
 		"Rainbow Homes Program"+ "<br/>"+
 		"Rainbow Foundation India"; 
