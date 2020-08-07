@@ -1,5 +1,6 @@
 package com.example.restservice.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -66,7 +67,13 @@ public class ChildStatusController {
 	@GetMapping("/child-leaving-reasons")
 	public ResponseEntity<List<ChildLeavingReason>> getChildLeavingReasons() {
 		List<ChildLeavingReason> childLeavingReasons = childLeavingReasonRepository.findAll();
-		return ResponseEntity.ok().body(childLeavingReasons);
+		List<ChildLeavingReason> activeChildLeavingReasons = new ArrayList<>();
+		for(ChildLeavingReason childLeavingReason: childLeavingReasons) {
+			if (childLeavingReason.getStatus().equals(1)){
+				activeChildLeavingReasons.add(childLeavingReason);
+			}
+		}
+		return ResponseEntity.ok().body(activeChildLeavingReasons);
 	}
 
 	@GetMapping("/child-left-places")

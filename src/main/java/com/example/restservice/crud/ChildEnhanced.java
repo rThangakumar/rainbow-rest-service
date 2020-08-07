@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ChildBasic")
@@ -98,9 +99,10 @@ public class ChildEnhanced {
 	private Integer previousClassStudied;
 
 	private Integer bloodGroup;
-
+	
 	private String profileUpdateFlag;
-
+	
+	@Transient
 	public String getProfileUpdateFlag() {
 		return profileUpdateFlag;
 	}
