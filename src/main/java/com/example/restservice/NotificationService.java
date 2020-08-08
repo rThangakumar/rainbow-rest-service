@@ -73,12 +73,12 @@ public class NotificationService {
 		}
 		String childName = child.getFirstName()+" " +child.getLastName();
 		rhCodes = getRhCode(child, rhCodes);
-		DateFormat simpleDateFormat = new SimpleDateFormat("E MMM dd, yyyy");
+		DateFormat simpleDateFormat = new SimpleDateFormat("EEEEEE MMMM dd, yyyy");
 	    String admissionDateStr = simpleDateFormat.format(child.getAdmissionDate());
 
-		String message = "Hi Team <br/>" + System.lineSeparator()+ System.lineSeparator()
+		String message = "Hi Team <br/><br/>" + System.lineSeparator()+ System.lineSeparator()
 		+"Child Name " + childName + 
-		"" + age + " Years old" + " admitted" + " on " + admissionDateStr + 
+		" " + age + " Years old" + " admitted" + " on " + admissionDateStr + 
 		" in "+rhCodes + "."+
 		"<br/><br/>"+
 		 
@@ -148,15 +148,15 @@ public class NotificationService {
 		}
 		String childName = child.getFirstName()+" " +child.getLastName();
 		Date date = new Date();
-		SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
-		String today = DateFor.format(date);
-		String message = "Hi Team, <br/> <br/>" + 
+		DateFormat simpleDateFormat = new SimpleDateFormat("EEEEEE MMMM dd, yyyy");
+		String today = simpleDateFormat.format(date);
+		String message = "Hi Team <br/> <br/>" + 
 		childName +"  " + age + "  Years old" + " Exited" + " on " + today + 
 		" in "+rhCodes + " for Parents are able to take care of child."+"<br/>"+
 		 
 		"<br/>" +	 
 		"Thank you"+"<br/>"+
-		"Rainbow Homes Program"+
+		"Rainbow Homes Program"+"<br/>"+
 		"Rainbow Foundation India"; 
 		
 		EmailData emailParams = new EmailData();
@@ -200,8 +200,9 @@ public class NotificationService {
 				
 		"URL: app.rainbowhome.in"+ "<br/>"+
 		"User Name: "+child.getChildStringId() +"<br/>"+
-		"Password: "+cred.getPassword()+ "<br/>"+ "<br/>"+
-		"Let's get connected,All the very best!!!"+ "<br/><br/>"+
+		"Password: "+cred.getPassword()+ "<br/>"+ 
+		"You can change the password once login."+ "<br/>"+ "<br/>"+
+		"Let's get connected, All the very best!!!"+ "<br/><br/>"+
 		"By"+ "<br/>"+
 		"Rainbow Homes Program"+ "<br/>"+
 		"Rainbow Foundation India"; 
