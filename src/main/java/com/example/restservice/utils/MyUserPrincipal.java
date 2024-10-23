@@ -25,7 +25,7 @@ public class MyUserPrincipal implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return userInfo.getEncryptedPassword();
+		return userInfo.getPassword();
 	}
 
 	@Override

@@ -10,6 +10,8 @@ import com.example.restservice.crud.ChildEducation;
 import com.example.restservice.crud.RainbowHome;
 
 public interface RainbowHomeRepository extends JpaRepository<RainbowHome, Integer> {
+    Optional<RainbowHome> findByrhNo(Integer rhNo);
 
-
+    List<RainbowHome> findByStateNetworkNoAndStatus(Short stateNetworkNo, Integer status);
+    List<RainbowHome> findByStateNetworkNoInAndStatus(List<Short> stateNetworkNos, Integer status);
 }

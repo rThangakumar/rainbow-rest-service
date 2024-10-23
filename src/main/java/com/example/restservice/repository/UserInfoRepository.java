@@ -5,9 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import com.example.restservice.crud.UserInfo;
 
+import java.util.Optional;
+
 @Repository
-public interface UserInfoRepository extends JpaRepository<UserInfo,Long> {
+public interface UserInfoRepository extends JpaRepository<UserInfo,Integer> {
 
 	UserInfo findByuserName(String userName);
+	Optional<UserInfo> findByUserNo(Integer userNo);
 
 }

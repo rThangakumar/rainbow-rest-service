@@ -13,5 +13,6 @@ public class UserLoginResponseDTO {
 	private Integer orgId;
 	private String homeCode;
 	private String comments;
+	private Integer userId;
 
 }

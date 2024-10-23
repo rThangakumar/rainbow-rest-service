@@ -37,6 +37,7 @@ public class UserController {
 				userLoginResponseDTO.setAuthStatus(true);
 				userLoginResponseDTO.setOrgId(userInfo.getOrgId());
 				userLoginResponseDTO.setHomeCode(userInfo.getRainbowHome().getRhCode());
+				userLoginResponseDTO.setUserId(userInfo.getUserNo());
 				userLoginResponseDTO.setComments("Authentication successful");
 			} else {
 				userLoginResponseDTO.setAuthStatus(false);
