@@ -23,20 +23,23 @@ public class UserController {
 	@PostMapping("/user-login")
 	public UserLoginResponseDTO getUserLogin(@Valid @RequestBody UserInfo requestUserInfo) {
 		UserInfo userInfo =  userInfoRepository.findByuserName(requestUserInfo.getUserName());
+		System.out.println(userInfo);
 		UserLoginResponseDTO userLoginResponseDTO = new UserLoginResponseDTO();
 		if (null == userInfo) {
 			userLoginResponseDTO.setAuthStatus(false);
 			userLoginResponseDTO.setComments("The User Name doesn't exist");
 			return userLoginResponseDTO;
 		} else {
-			if (null!= userInfo.getOrgLevelNo() && userInfo.getOrgLevelNo() !=  5) {
-				userLoginResponseDTO.setAuthStatus(false);
-				userLoginResponseDTO.setComments("Please use Home Staff ID to login");
-			}
-			else if (userInfo.getPassword().equals(requestUserInfo.getPassword())) {
+//			if (null!= userInfo.getOrgLevelNo() && userInfo.getOrgLevelNo() !=  5) {
+//				userLoginResponseDTO.setAuthStatus(false);
+//				userLoginResponseDTO.setComments("Please use Home Staff ID to login");
+//			}
+			if (userInfo.getPassword().equals(requestUserInfo.getPassword())) {
 				userLoginResponseDTO.setAuthStatus(true);
 				userLoginResponseDTO.setOrgId(userInfo.getOrgId());
+				userLoginResponseDTO.setOrgLevelNo(userInfo.getOrgLevelNo());
 				userLoginResponseDTO.setHomeCode(userInfo.getRainbowHome().getRhCode());
+				userLoginResponseDTO.setUserId(userInfo.getUserNo());
 				userLoginResponseDTO.setComments("Authentication successful");
 			} else {
 				userLoginResponseDTO.setAuthStatus(false);

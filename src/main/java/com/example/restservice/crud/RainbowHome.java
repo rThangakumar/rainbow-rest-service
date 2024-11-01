@@ -2,14 +2,7 @@ package com.example.restservice.crud;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,6 +14,7 @@ import lombok.Setter;
 
 
 @Entity
+@Table(name = "RainbowHome", schema = "dbo")
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
@@ -35,39 +29,24 @@ public class RainbowHome {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter(AccessLevel.NONE)
-	@Setter(AccessLevel.NONE)
+//	@Getter(AccessLevel.NONE)
+//	@Setter(AccessLevel.NONE)
+	@Column(name = "RHNo")
 	public Integer rhNo;
+
+	@Column(name = "RHCode")
 	public String rhCode;
-	
+
+	@Column(name = "RHName")
 	public String rhName;
+
+	@Column(name = "City")
 	public String city;
 
-	public String getRhCode() {
-		return rhCode;
-	}
+	@Column(name = "STATUS")
+	public Integer status;
 
-	public void setRhCode(String rhCode) {
-		this.rhCode = rhCode;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getRhName() {
-		return rhName;
-	}
-
-	public void setRhName(String rhName) {
-		this.rhName = rhName;
-	}
-		
-	
-    
+	@Column(name = "StateNetworkNo")
+	public Short stateNetworkNo;
 
 }
