@@ -17,6 +17,7 @@ public class Staff {
 	private Integer staffStatus;
 	private String staffId;
 	private Integer orgID;
+	private Integer jobTitle;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +67,14 @@ public class Staff {
 	}
 	public void setOrgID(Integer orgID) {
 		this.orgID = orgID;
+	}
+
+	@Column(name="JobTitle")
+	public Integer getJobTitle() {
+		return jobTitle;
+	}
+	public void setJobTitle(Integer jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 	
 }

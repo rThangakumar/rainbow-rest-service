@@ -19,17 +19,17 @@ import lombok.Setter;
 @Entity
 @Table(name = "ChildBasic")
 @NamedNativeQueries({
-		@NamedNativeQuery(name = "ChildListEnhanced.getChildEnhancedList", resultClass = ChildListEnhanced.class, query = "select cb.childno, cb.ChildID , cb.RHNo, cb.EducationStatus , cb.FirstName,  cm_filter.childStatusDate,cs.ChildStatus, ISNULL(pde.ProfileStatusFlag, 'Y') as profileStatusFlag "
+		@NamedNativeQuery(name = "ChildListEnhanced.getChildEnhancedList", resultClass = ChildListEnhanced.class, query = "select cb.childno, cb.ChildID , cb.RHNo, cb.EducationStatus , cb.FirstName,  cm_filter.childStatusDate,cs.ChildStatus "
 				+ ", cb.LastName, cs.ChildStatusID, cb.Gender,cb.CDOB,cb.AdmissionDate,cb.Picture "
 				+ "from childbasic cb\n" + "-- join for status update\n" + " LEFT join \n"
 				+ "(Select CSM.ChildNo,CSM.Reason, CSM.childStatusDate as childStatusDate from ChildMap CSM join (Select CSM.ChildNo, MAX(CSM.CSMID) as CSMID from ChildMap CSM Group By CSM.ChildNo) as E on E.CSMID = CSM.CSMID) as cm_filter on cm_filter.ChildNo = cb.ChildNo\n"
 				+ "-- join status value\n" + "JOIN ChildStatus CS ON CS.ChildStatusID = CB.ChildStatus \n"
-				+ "-- profile status query\n" + "\n" + " LEFT JOIN \n" + "(select \n" + "case \n"
-				+ "    when (DATEDIFF(DAYOFYEAR , pd.MODIFIED_ON, SYSDATETIME()) >=365) THEN 'Y'\n"
-				+ "    when (pd.MODIFIED_ON IS NULL) THEN 'Y'\n" + "    else 'N' \n"
-				+ "end as ProfileStatusFlag, pd.ChildNo as childno, DATEDIFF(DAYOFYEAR , pd.MODIFIED_ON, SYSDATETIME()) as datedifference from ProfileDescription pd\n"
-				+ "JOIN\n"
-				+ "(select MAX(ProfileDescriptionNo) as profileDescNo from ProfileDescription group by ChildNo)as PE on PE.profileDescNo = pd.ProfileDescriptionNo)as pde on pde.childno = cb.childno\n"
+//				+ "-- profile status query\n" + "\n" + " LEFT JOIN \n" + "(select \n" + "case \n"
+//				+ "    when (DATEDIFF(DAYOFYEAR , pd.MODIFIED_ON, SYSDATETIME()) >=365) THEN 'Y'\n"
+//				+ "    when (pd.MODIFIED_ON IS NULL) THEN 'Y'\n" + "    else 'N' \n"
+//				+ "end as ProfileStatusFlag, pd.ChildNo as childno, DATEDIFF(DAYOFYEAR , pd.MODIFIED_ON, SYSDATETIME()) as datedifference from ProfileDescription pd\n"
+//				+ "JOIN\n"
+//				+ "(select MAX(ProfileDescriptionNo) as profileDescNo from ProfileDescription group by ChildNo)as PE on PE.profileDescNo = pd.ProfileDescriptionNo)as pde on pde.childno = cb.childno\n"
 				+ " where cb.RHNo = :rainbowHomeNumber"
 
 		),
@@ -45,7 +45,7 @@ public class ChildListEnhanced {
 	private String firstName;
 	private Date childStatusDate;
 	private String childStatus;
-	private String profileStatusFlag;
+//	private String profileStatusFlag;
 	private String lastName;
 	private Integer childStatusId;
 	private Integer gender;

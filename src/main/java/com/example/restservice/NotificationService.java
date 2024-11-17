@@ -5,13 +5,13 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
-import java.util.TimeZone;
+import java.util.*;
 
 import javax.mail.MessagingException;
 
+import com.example.restservice.crud.Sponsor;
+import com.example.restservice.model.ContributionResponse;
+import com.example.restservice.repository.SponsorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,9 @@ public class NotificationService {
 	
 	@Autowired
 	RainbowHomeRepository rainbowRepository;
+
+	@Autowired
+	SponsorRepository sponsorRepository;
 	
 	private String fromAddress;
 	
@@ -237,6 +240,47 @@ public class NotificationService {
 		}
 		return true;
 		
+	}
+
+	public void sendNewDonationNotification(List<ContributionResponse> contributions) {
+		double totalAmount = 0;
+		for(ContributionResponse contribution : contributions) {
+			totalAmount += contribution.getAmount();
+		}
+		int sponsorId = contributions.get(0).getSponsorId();
+		Optional<Sponsor> sponsor = sponsorRepository.findBySponsorNo(sponsorId);
+		if(sponsor.isPresent()) {
+			String toEmailId = sponsor.get().getEmailId();
+			String fromAddress = "ror_rfi@rainbowhome.in";
+			String donorName = sponsor.get().getSponsorName();
+
+			String message = "Thanks for your generous donation." +
+					"<br/><br/>" +
+					"Your donation has already made a huge impact. " +
+					donorName + ", your donation of " + totalAmount + " helps to suppport child/children." +
+					"<br/><br/>"+
+
+					"Thank you "+"<br/>"+
+					"Rainbow Homes Program"+ "<br/>"+
+					"Rainbow Foundation India";
+
+			EmailData emailParams = new EmailData();
+			emailParams.setFromAddress(fromAddress);
+			emailParams.setSubject("Thanks for your donation.");
+			emailParams.setMessage(message);
+			emailParams.setToAddress(toEmailId);
+			emailParams.setBccAdress("raju.rfi@rainbowhome.in, babu.rfi@rainbowhome.in");
+
+			if(toEmailId != "") {
+				try {
+					emailService.sendHtmlMail(emailParams);
+
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	

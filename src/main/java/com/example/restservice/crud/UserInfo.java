@@ -31,12 +31,16 @@ public class UserInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userNo;
+
 	@NotNull
 	private String userName;
+
 	@NotNull
 	private String password;
-	private String encryptedPassword;
+//	private String encryptedPassword;
+
 	private Integer orgId;
+
 	private Integer orgLevelNo;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

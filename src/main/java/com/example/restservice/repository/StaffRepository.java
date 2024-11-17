@@ -16,4 +16,6 @@ public interface StaffRepository extends JpaRepository<Staff,Long> {
 
 	List<Staff> findByOrgIDAndStaffStatus(Integer orgId, Integer staffStatus);
 
+	List<Staff> findByOrgIDAndJobTitle(Integer orgId, Integer jobTitle);
+
 }
